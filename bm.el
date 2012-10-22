@@ -13,7 +13,8 @@
 (TeX-add-style-hook "bm"
  (lambda ()
    (TeX-add-symbols
-    '("bm" 1))
+    '("bm" 1)
+    '("hm" 1))
    ;; Fontification
    (when (and (featurep 'font-latex)
    	      (eq TeX-install-font-lock 'font-latex-setup))
