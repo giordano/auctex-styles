@@ -1,4 +1,4 @@
-;;; siunitx.el --- AUCTeX style for `siunitx.sty' version 2.5j
+;;; siunitx.el --- AUCTeX style for `siunitx.sty' version 2.5m
 
 ;; Author: Mosè Giordano <giordano.mose@libero.it>
 ;; Created: 2012-10-20
@@ -6,7 +6,7 @@
 
 ;;; Commentary:
 
-;; This file adds support for `siunitx.sty' version 2.5j.
+;; This file adds support for `siunitx.sty' version 2.5m.
 
 ;;; Code:
 
@@ -220,7 +220,7 @@
     '("pF" 0)
     '("K" 0)
     '("dB" 0)
-    ;; Binary prefixes and units
+    ;; Binary prefixes and units available when `binary-units' option is used
     '("kibi" 0)
     '("mebi" 0)
     '("gibi" 0)
@@ -306,6 +306,7 @@
    (TeX-run-style-hooks "l3keys2e"
 			"array"
 			"amstext"
+			"xparse"
 			"expl3")
    ;; Fontification
    (when (and (featurep 'font-latex)
