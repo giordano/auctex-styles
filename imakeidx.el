@@ -48,11 +48,22 @@
     ("othercode"))
   "Options for indexsetup macro of the hyperref package.")
 
+;; `firstpagestyle' key for `indexsetup' macro takes as value one of
+;; the available pagestyles.  `LaTeX-pagestyle-list' is a list of
+;; lists of strings, we need a list of strings
+(setq LaTeX-imakeidx-firstpagestyle-values nil)
+(dotimes (i (list-length LaTeX-pagestyle-list))
+  (setq LaTeX-imakeidx-firstpagestyle-values
+	(append LaTeX-imakeidx-firstpagestyle-values
+		(nth i LaTeX-pagestyle-list))))
+
+;; `firstpagestyle' and `headers' options for `indexsetup' macro are
+;; available only if `fancyhdr' is not loaded.  The following code
 ;; works only if `imakeidx' is loaded before `fancyhdr'
 (unless (member "fancyhdr" TeX-active-styles)
   (setq LaTeX-imakeidx-indexsetup-options
 	(append LaTeX-imakeidx-indexsetup-options
-		'(("firstpagestyle" ("plain" "empty" "headings" "myheadings")))
+		'(("firstpagestyle" LaTeX-imakeidx-firstpagestyle-values))
 		'(("headers")))))
 
 (TeX-add-style-hook "imakeidx"
@@ -78,7 +89,8 @@
     "ifxetex"
     "xkeyval")
 
-   ;; Completion for the |see macro and RefTeX support taken from `makeidx.el'
+   ;; Completion for the |see macro and RefTeX support taken from
+   ;; `makeidx.el'
    (setq TeX-complete-list
 	 (append
 	  '(("|see{\\([^{}\n\r]*\\)" 1 LaTeX-index-entry-list))

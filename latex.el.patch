@@ -1,0 +1,25 @@
+--- latex.el	2012-12-26 01:14:31.000000000 +0100
++++ /usr/share/emacs/site-lisp/auctex/latex.el	2012-12-25 02:51:12.000000000 +0100
+@@ -1901,6 +1901,13 @@
+ 		    nil t)
+    optional))
+ 
++(defcustom LaTeX-pagestyle-list
++  '(("plain") ("empty") ("headings") ("myheadings"))
++  "A list of available pagestyles."
++  :group 'LaTeX
++  :type '(repeat (list (string))))
++(make-variable-buffer-local 'LaTeX-pagestyle-list)
++
+ (defun TeX-arg-pagestyle (optional &optional prompt)
+   "Prompt for a LaTeX pagestyle with completion.
+ If OPTIONAL is non-nil, insert the resulting value as an optional
+@@ -1908,7 +1915,7 @@
+ string."
+   (TeX-argument-insert
+    (completing-read (TeX-argument-prompt optional prompt "Pagestyle")
+-		    '(("plain") ("empty") ("headings") ("myheadings")))
++		    LaTeX-pagestyle-list)
+    optional))
+ 
+ (defcustom LaTeX-default-verb-delimiter ?|
