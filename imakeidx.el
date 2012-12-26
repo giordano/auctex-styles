@@ -39,14 +39,14 @@
     ("columns")
     ("columnsep")
     ("columnseprule" ("true" "false")))
-  "Options for makeindex macro of the hyperref package.")
+  "Key=value options for makeindex macro of the imakeidx package.")
 
 (defvar LaTeX-imakeidx-indexsetup-options
   '(("level")
     ("toclevel")
     ("noclearpage" ("true" "false"))
     ("othercode"))
-  "Options for indexsetup macro of the hyperref package.")
+  "Key=value options for indexsetup macro of the imakeidx package.")
 
 ;; `firstpagestyle' and `headers' options for `indexsetup' macro are
 ;; available only if `fancyhdr' is not loaded.  The following code

@@ -1,4 +1,4 @@
-;;; hyperref.el --- AUCTeX style for the hyperref class v6.83m
+;;; hyperref.el --- AUCTeX style for `hyperref.sty' v6.83m
 
 ;; Copyright (C) 2008 Free Software Foundation, Inc.
 
@@ -145,6 +145,14 @@
     ("unicode" ("true" "false")))
   "Package options for the hyperref package.")
 
+(defvar LaTeX-hyperref-href-options
+  '(("pdfremotestartview" ("XYZ" "Fit" "FitH" "FitV" "FitR" "FitB" "FitBH" "FitBV"))
+    ("pdfnewwindow" ("true" "false"))
+    ("page")
+    ("ismap" ("true" "false"))
+    ("nextactionraw"))
+  "Key=value options for href macro of the hyperref package.")
+
 (TeX-add-style-hook
  "hyperref"
  (lambda ()
@@ -152,7 +160,7 @@
    (TeX-run-style-hooks "url")
    (TeX-add-symbols
     '("hypersetup" (TeX-arg-key-val LaTeX-hyperref-package-options))
-    '("href" [ "Options" ] "URL" "Text")
+    '("href" [ (TeX-arg-key-val LaTeX-hyperref-href-options) ] "URL" "Text")
     '("nolinkurl" t)
     '("hyperbaseurl" t)
     '("hyperimage" "Image URL" "Text")
