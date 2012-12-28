@@ -55,11 +55,8 @@
   ;; `firstpagestyle' key takes as value one of the available
   ;; pagestyles.  `LaTeX-pagestyle-list' is a list of lists of
   ;; strings, we need a list of strings
-  (setq LaTeX-imakeidx-firstpagestyle-values nil)
-  (dotimes (i (list-length LaTeX-pagestyle-list))
-    (setq LaTeX-imakeidx-firstpagestyle-values
-	  (append LaTeX-imakeidx-firstpagestyle-values
-		  (nth i LaTeX-pagestyle-list))))
+  (setq LaTeX-imakeidx-firstpagestyle-values
+        (mapcar #'car LaTeX-pagestyle-list))
   (setq LaTeX-imakeidx-indexsetup-options
 	(append LaTeX-imakeidx-indexsetup-options
 		'(("firstpagestyle" LaTeX-imakeidx-firstpagestyle-values))
