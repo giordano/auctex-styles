@@ -47,6 +47,7 @@
     ("noclearpage" ("true" "false"))
     ("othercode"))
   "Key=value options for indexsetup macro of the imakeidx package.")
+(make-variable-buffer-local 'LaTeX-imakeidx-indexsetup-options)
 
 ;; `firstpagestyle' and `headers' options for `indexsetup' macro are
 ;; available only if `fancyhdr' is not loaded.  The following code
@@ -55,11 +56,9 @@
   ;; `firstpagestyle' key takes as value one of the available
   ;; pagestyles.  `LaTeX-pagestyle-list' is a list of lists of
   ;; strings, we need a list of strings
-  (setq LaTeX-imakeidx-firstpagestyle-values
-        (mapcar #'car LaTeX-pagestyle-list))
   (setq LaTeX-imakeidx-indexsetup-options
 	(append LaTeX-imakeidx-indexsetup-options
-		'(("firstpagestyle" LaTeX-imakeidx-firstpagestyle-values))
+                `(("firstpagestyle" ,(mapcar #'car LaTeX-pagestyle-list)))
 		'(("headers")))))
 
 (TeX-add-style-hook "imakeidx"
