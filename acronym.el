@@ -29,7 +29,6 @@
 
 ;;; Code:
 
-;; TODO: improve regexp, acronym may also be a macro
 (setq LaTeX-auto-regexp-list
       (append
        '(("\\\\acro{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acronym))
@@ -59,7 +58,8 @@ string."
 (TeX-add-style-hook "acronym"
  (lambda ()
     (LaTeX-add-environments
-     '("acronym" LaTeX-env-args [TeX-arg-acronym]))
+     '("acronym" LaTeX-env-args
+       [TeX-arg-string "Longest acronym"]))
     (TeX-add-symbols
      '("ac" TeX-arg-acronym)
      '("acresetall" 0)
@@ -119,7 +119,7 @@ string."
 				 ("aclp" "*{")
 				 ("acfi" "*{")
 				 ("acused" "{")
-				 ("acsu" "*{"}
+				 ("acsu" "*{")
 				 ("aclu" "*{")
 				 ("iac" "*{")
 				 ("Iac" "*{")
