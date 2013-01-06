@@ -118,7 +118,8 @@ string."
 				 ("acsp" "*{")
 				 ("aclp" "*{")
 				 ("acfi" "*{")
-				 ("acused" "*{")
+				 ("acused" "{")
+				 ("acsu" "*{"}
 				 ("aclu" "*{")
 				 ("iac" "*{")
 				 ("Iac" "*{")
