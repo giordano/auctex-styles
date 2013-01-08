@@ -29,12 +29,10 @@
 
 ;;; Code:
 
-(setq LaTeX-auto-regexp-list
-      (append
-       '(("\\\\acro{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acronym))
-       LaTeX-auto-regexp-list))
-
 (TeX-auto-add-type "acronym" "LaTeX")
+
+(add-to-list 'LaTeX-auto-regexp-list
+	     '("\\\\acro{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acronym))
 
 (defun TeX-arg-acronym (optional &optional prompt definition)
   "Prompt for a acronym completing with known acronyms.
