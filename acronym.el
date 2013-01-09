@@ -35,7 +35,7 @@
 	     '("\\\\acro{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acronym))
 
 (defun TeX-arg-acronym (optional &optional prompt definition)
-  "Prompt for a acronym completing with known acronyms.
+  "Prompt for an acronym completing with known acronyms.
 If OPTIONAL is non-nil, insert the resulting value as an optional
 argument, otherwise as a mandatory one.  Use PROMPT as the prompt
 string.  If DEFINITION is non-nil, add the chosen acronym to the
@@ -47,7 +47,7 @@ list of defined acronyms."
     (TeX-argument-insert acronym optional optional)))
 
 (defun TeX-arg-define-acronym (optional &optional prompt)
-  "Prompt for a acronym completing with known acronyms.
+  "Prompt for an acronym completing with known acronyms.
 If OPTIONAL is non-nil, insert the resulting value as an optional
 argument, otherwise as a mandatory one.  Use PROMPT as the prompt
 string."
@@ -105,6 +105,7 @@ string."
     "relsize"
     "xstring"
     "suffix")
+
    ;; Fontification
    (when (and (featurep 'font-latex)
 	      (eq TeX-install-font-lock 'font-latex-setup))
@@ -123,7 +124,7 @@ string."
 				("iac" "*{")
 				("Iac" "*{")
 				("acro" "{[{")
-				("acroextra" "{{")
+				("acroextra" "{")
 				("newacro" "{[{")
 				("acrodef" "{[{")
 				("acroindefinite" "{{{")
