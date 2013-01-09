@@ -157,7 +157,10 @@ zero length."
    ;; Fontification
    (when (and (featurep 'font-latex)
 	      (eq TeX-install-font-lock 'font-latex-setup))
-     (font-latex-add-keywords '(("DeclareAcronym" "*{{[{")
+     (font-latex-add-keywords '(;; last two arguments of DeclareAcronym (should
+				;; be "{[") are both optional, we don't need to
+				;; explicit list them here
+				("DeclareAcronym" "*{{[{")
 				("DeclareAcronymFormat" "{{")
 				("DeclareAcronymCitation" "{[[{")
 				("DeclareAcronymPDFString" "{{")

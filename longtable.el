@@ -49,7 +49,10 @@
 						 (concat TeX-grop fmt TeX-grcl)))
 		      ;; top caption -- do nothing if user skips caption
 		      (unless (zerop (length caption))
-			(insert TeX-esc "caption" TeX-grop caption TeX-grcl)
+			;; the longtable `\caption' is equivalent to a
+			;; `\multicolumn', so it needs a `\\' at the
+			;; end of the line
+			(insert TeX-esc "caption" TeX-grop caption TeX-grcl " \\\\")
 			(LaTeX-newline)
 			(indent-according-to-mode)
 			;; ask for a label and insert a new line only
