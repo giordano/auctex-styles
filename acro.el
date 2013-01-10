@@ -179,7 +179,7 @@ zero length."
 				("acap" "*{")
 				("acfp" "*{")
 				("Acfp" "*{")
-				("acuse" "{")
-				'function))))
+				("acuse" "{"))
+			      'function))))
 
 ;;; acro.el ends here
