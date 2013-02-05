@@ -1,4 +1,4 @@
-;;; siunitx.el --- AUCTeX style for `siunitx.sty' version 2.5o.
+;;; siunitx.el --- AUCTeX style for `siunitx.sty' version 2.5p.
 
 ;; Copyright (C) 2012-2013 Free Software Foundation, Inc.
 
@@ -25,9 +25,16 @@
 
 ;;; Commentary:
 
-;; This file adds support for `siunitx.sty' version 2.5o.
+;; This file adds support for `siunitx.sty' version 2.5p.
 
 ;;; Code:
+
+;; Add to `LaTeX-auto-regexp-list' a regexp matching new unit, prefix, power,
+;; and qualifier macros.  `\\(\\[.*\\]\\)?' matches possible options (actually
+;; used only by `DeclareSIUnit'), wrapped in `[...]'.
+(setq LaTeX-auto-regexp-list
+      (append '(("\\\\Declare\\(?:SIUnit\\|SIPrefix\\|BinaryPrefix\\|SIPostPower\\|SIPrepower\\|SQualifier\\)[ \t\n]*\\(\\[.*\\]\\)?[ \t\n]*{?\\\\\\([A-Za-z]+\\)}?" 1 TeX-auto-symbol))
+	      LaTeX-auto-regexp-list))
 
 (defvar LaTeX-siunitx-package-options
   '(;; Detecting fonts
