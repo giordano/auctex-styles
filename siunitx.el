@@ -29,12 +29,31 @@
 
 ;;; Code:
 
-;; Add to `LaTeX-auto-regexp-list' a regexp matching new unit, prefix, power,
-;; and qualifier macros.  `\\(\\[.*\\]\\)?' matches possible options (actually
-;; used only by `DeclareSIUnit'), wrapped in `[...]'.
-(setq LaTeX-auto-regexp-list
-      (append '(("\\\\Declare\\(?:SIUnit\\|SIPrefix\\|BinaryPrefix\\|SIPostPower\\|SIPrepower\\|SQualifier\\)[ \t\n]*\\(\\[.*\\]\\)?[ \t\n]*{?\\\\\\([A-Za-z]+\\)}?" 1 TeX-auto-symbol))
-	      LaTeX-auto-regexp-list))
+;; Self Parsing -- see (info "(auctex)Hacking the Parser").  `\\(?:\\[.*\\]\\)?'
+;; matches possible options (actually used only by `DeclareSIUnit' macro),
+;; wrapped in `[...]'.
+(defvar LaTeX-siunitx-regexp
+  '("\\\\Declare\\(?:SIUnit\\|SIPrefix\\|BinaryPrefix\\|SIPostPower\\|SIPrepower\\|SIQualifier\\)[ \t\n]*\\(?:\\[.*\\]\\)?[ \t\n]*{?\\\\\\([A-Za-z]+\\)}?" 1 LaTeX-auto-siunitx)
+  "Matches new siunitx unit, prefix, power, and qualifier definitions.")
+
+(defvar LaTeX-auto-siunitx nil
+  "Temporary for parsing siunitx macro definitions.")
+
+(defun LaTeX-siunitx-prepare ()
+  "Clear `LaTex-auto-siunitx' before use."
+  (setq LaTeX-auto-siunitx nil))
+
+(defun LaTeX-siunitx-cleanup ()
+  "Move symbols from `LaTeX-auto-siunitx' to `TeX-auto-symbol'."
+  (mapcar (lambda (symbol)
+	    ;; `siunitx' unit macros don't take arguments, we add them to
+	    ;; `TeX-auto-symbol' in the form `("symbol" 0)'
+	    (setq TeX-auto-symbol (cons (list symbol 0) TeX-auto-symbol)))
+	  LaTeX-auto-siunitx))
+
+;; FIXME: This does not seem to work unless one does a manual reparse.
+(add-hook 'TeX-auto-prepare-hook 'LaTeX-siunitx-prepare)
+(add-hook 'TeX-auto-cleanup-hook 'LaTeX-siunitx-cleanup)
 
 (defvar LaTeX-siunitx-package-options
   '(;; Detecting fonts
@@ -58,7 +77,7 @@
     ("text-sf")
     ("text-tt")
     ("unit-color")
-    ;;  Parsing numbers
+    ;; Parsing numbers
     ("input-close-uncertainty")
     ("input-comparators")
     ("input-complex-roots")
@@ -72,7 +91,7 @@
     ("input-uncertainty-signs")
     ("input-symbols")
     ("parse-numbers" ("true" "false"))
-    ;;  Post-processing numbers
+    ;; Post-processing numbers
     ("add-decimal-zero" ("true" "false"))
     ("add-integer-zero" ("true" "false"))
     ("explicit-sign")
@@ -89,7 +108,7 @@
     ("round-precision")
     ("scientific-notation" ("true" "false" "fixed" "engineering"))
     ("zero-decimal-to-integer" ("true" "false"))
-    ;;  Printing numbers
+    ;; Printing numbers
     ("bracket-negative-numbers" ("true" "false"))
     ("bracket-numbers" ("true" "false"))
     ("close-bracket")
@@ -161,7 +180,7 @@
     ("number-unit-product")
     ("product-units" ("repeat" "brackets" "brackets-power" "power" "repeat" "single"))
     ("range-units" ("brackets" "repeat" "single"))
-    ;;  Tabular material
+    ;; Tabular material
     ("table-align-comparator" ("true" "false"))
     ("table-align-exponent" ("true" "false"))
     ("table-align-text-pre" ("true" "false"))
@@ -209,6 +228,7 @@
 (TeX-add-style-hook
  "siunitx"
  (lambda ()
+   (TeX-auto-add-regexp LaTeX-siunitx-regexp)
    (TeX-add-symbols
     ;; Numbers
     '("ang" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Angle")
@@ -241,7 +261,7 @@
     '("meter" 0)
     '("metre" 0)
     '("second" 0)
-    ;;  Coherent derived units in the SI with special names and symbols
+    ;; Coherent derived units in the SI with special names and symbols
     '("becquerel" 0)
     '("celsius" 0)
     '("degreeCelsius" 0)
@@ -287,7 +307,7 @@
     '("elementarycharge" 0)
     '("hartree" 0)
     '("planckbar" 0)
-    ;;  Other non-SI units.
+    ;; Other non-SI units.
     '("angstrom" 0)
     '("bar" 0)
     '("barn" 0)
