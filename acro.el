@@ -62,8 +62,30 @@
 
 (TeX-auto-add-type "acronym" "LaTeX")
 
-(add-to-list 'LaTeX-auto-regexp-list
-	     '("\\\\DeclareAcronym\\*?{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acronym))
+;; Self Parsing -- see (info "(auctex)Hacking the Parser").
+(defvar LaTeX-acro-regexp
+  '("\\\\DeclareAcronym\\*?{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acro)
+  "Matches acronym.")
+
+(defvar LaTeX-auto-acro nil
+  "Temporary for parsing acronym definitions.")
+
+(defun LaTeX-acro-prepare ()
+  "Clear `LaTex-auto-acro' before use."
+  (setq LaTeX-auto-acro nil))
+
+(defun LaTeX-acro-cleanup ()
+  "Move symbols from `LaTeX-auto-acro' to `LaTeX-acro-list' and to
+`TeX-auto-symbol' if option `macros' is set to `true'."
+  (add-to-list 'LaTeX-acronym-list LaTeX-auto-acro)
+  (when (or (member "macros" TeX-active-styles)
+	    (member "macros=true" TeX-active-styles))
+    (add-to-list 'LaTeX-acronym-list TeX-auto-symbol)))
+
+;; FIXME: This does not seem to work unless one does a manual reparse.
+(add-hook 'TeX-auto-prepare-hook 'LaTeX-acro-prepare)
+(add-hook 'TeX-auto-cleanup-hook 'LaTeX-acro-cleanup)
+
 
 (defun TeX-arg-acronym (optional &optional prompt definition)
   "Prompt for an acronym completing with known acronyms.
@@ -95,6 +117,7 @@ zero length."
 (TeX-add-style-hook
  "acro"
  (lambda ()
+   (TeX-auto-add-regexp LaTeX-acronym-regexp)
    (TeX-add-symbols
     ;; Creating new acronyms
     '("DeclareAcronym" TeX-arg-define-acronym "Short form, optional plural ending" [ "Alternative short form" ]
