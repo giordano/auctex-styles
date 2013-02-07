@@ -33,7 +33,8 @@
 ;; matches possible options (actually used only by `DeclareSIUnit' macro),
 ;; wrapped in `[...]'.
 (defvar LaTeX-siunitx-regexp
-  '("\\\\Declare\\(?:SIUnit\\|SIPrefix\\|BinaryPrefix\\|SIPostPower\\|SIPrepower\\|SIQualifier\\)[ \t\n]*\\(?:\\[.*\\]\\)?[ \t\n]*{?\\\\\\([A-Za-z]+\\)}?" 1 LaTeX-auto-siunitx)
+  '("\\\\Declare\\(?:SIUnit\\|SIPrefix\\|BinaryPrefix\\|SIPostPower\\|SIPrepower\\|SIQualifier\\)\
+[ \t\n\r]*\\(?:\\[.*\\]\\)?[ \t\n\r]*{?\\\\\\([A-Za-z]+\\)}?" 1 LaTeX-auto-siunitx)
   "Matches new siunitx unit, prefix, power, and qualifier definitions.")
 
 (defvar LaTeX-auto-siunitx nil
