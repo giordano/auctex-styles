@@ -31,8 +31,25 @@
 
 (TeX-auto-add-type "acronym" "LaTeX")
 
-(add-to-list 'LaTeX-auto-regexp-list
-	     '("\\\\acro{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acronym))
+;; Self Parsing -- see (info "(auctex)Hacking the Parser").
+(defvar LaTeX-acronym-regexp
+  '("\\\\acro{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acronym)
+  "Matches acronym.")
+
+(defvar LaTeX-auto-acronym nil
+  "Temporary for parsing acronym definitions.")
+
+(defun LaTeX-acronym-prepare ()
+  "Clear `LaTex-auto-acronym' before use."
+  (setq LaTeX-auto-acronym nil))
+
+(defun LaTeX-acronym-cleanup ()
+  "Move symbols from `LaTeX-auto-acronym' to `LaTeX-acronym-list'."
+  (add-to-list 'LaTeX-acronym-list LaTeX-auto-acronym))
+
+;; FIXME: This does not seem to work unless one does a manual reparse.
+(add-hook 'TeX-auto-prepare-hook 'LaTeX-acronym-prepare)
+(add-hook 'TeX-auto-cleanup-hook 'LaTeX-acronym-cleanup)
 
 (defun TeX-arg-acronym (optional &optional prompt definition)
   "Prompt for an acronym completing with known acronyms.
@@ -56,6 +73,7 @@ string."
 (TeX-add-style-hook
  "acronym"
  (lambda ()
+   (TeX-auto-add-regexp LaTeX-acronym-regexp)
    (LaTeX-add-environments
     '("acronym" LaTeX-env-args
       [TeX-arg-string "Longest acronym"]))
