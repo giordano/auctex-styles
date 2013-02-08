@@ -77,7 +77,9 @@
 (defun LaTeX-acro-cleanup ()
   "Move symbols from `LaTeX-auto-acro' to `LaTeX-acro-list' and to
 `TeX-auto-symbol' if option `macros' is set to `true'."
-  (add-to-list 'LaTeX-acronym-list LaTeX-auto-acro)
+  (mapcar (lambda (symbol)
+	    (setq LaTeX-acronym-list (cons symbol LaTeX-auto-acronym)))
+	  LaTeX-auto-acronym)
   (when (or (member "macros" TeX-active-styles)
 	    (member "macros=true" TeX-active-styles))
     (add-to-list 'LaTeX-acronym-list TeX-auto-symbol)))
@@ -85,7 +87,6 @@
 ;; FIXME: This does not seem to work unless one does a manual reparse.
 (add-hook 'TeX-auto-prepare-hook 'LaTeX-acro-prepare)
 (add-hook 'TeX-auto-cleanup-hook 'LaTeX-acro-cleanup)
-
 
 (defun TeX-arg-acronym (optional &optional prompt definition)
   "Prompt for an acronym completing with known acronyms.
