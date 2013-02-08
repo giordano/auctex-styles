@@ -45,7 +45,9 @@
 
 (defun LaTeX-acronym-cleanup ()
   "Move symbols from `LaTeX-auto-acronym' to `LaTeX-acronym-list'."
-  (add-to-list 'LaTeX-acronym-list LaTeX-auto-acronym))
+  (mapcar (lambda (symbol)
+	    (setq LaTeX-acronym-list (cons symbol LaTeX-auto-acronym)))
+	  LaTeX-auto-acronym))
 
 ;; FIXME: This does not seem to work unless one does a manual reparse.
 (add-hook 'TeX-auto-prepare-hook 'LaTeX-acronym-prepare)
