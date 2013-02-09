@@ -63,25 +63,24 @@ argument, otherwise as a mandatory one.  Use PROMPT as the prompt
 string.  If INITIAL-INPUT is non-nil, insert it in the minibuffer
 initially, with point positioned at the end.  If DEFINITION is
 non-nil, add the chosen unit to the list of defined units."
-  ;; Remove <SPC> key binding in minibuffer and set completion
+  ;; Remove <SPC> key bindings in minibuffer and set completion
   ;; separator to <SPC>.
-  (setq TeX-tmp-space-completion (lookup-key minibuffer-local-completion-map " "))
-  (setq TeX-tmp-space-must-match (lookup-key minibuffer-local-must-match-map " "))
-  (define-key minibuffer-local-completion-map " " nil)
-  (define-key minibuffer-local-must-match-map " " nil)
-  (setq crm-separator " ")
-  (let ((unit (mapconcat 'identity
-			 (completing-read-multiple
-			  (TeX-argument-prompt optional prompt "Unit")
-			  (LaTeX-siunitx-unit-list) nil nil initial-input)
-			 crm-separator)))
-    (if (and definition (not (string-equal "" unit)))
-	(LaTeX-add-siunitx-units unit))
-    (TeX-argument-insert unit optional))
-  ;; Restore crm-separator and <SPC> key binding in minibuffer.
+  (let ((TeX-tmp-space-completion (lookup-key minibuffer-local-completion-map " "))
+	(TeX-tmp-space-must-match (lookup-key minibuffer-local-must-match-map " "))
+	(crm-separator " "))
+    (define-key minibuffer-local-completion-map " " nil)
+    (define-key minibuffer-local-must-match-map " " nil)
+    (let ((unit (mapconcat 'identity
+			   (completing-read-multiple
+			    (TeX-argument-prompt optional prompt "Unit")
+			    (LaTeX-siunitx-unit-list) nil nil initial-input)
+			   crm-separator)))
+      (if (and definition (not (string-equal "" unit)))
+	  (LaTeX-add-siunitx-units unit))
+      (TeX-argument-insert unit optional))
+  ;; Restore <SPC> key bindings in minibuffer.
   (define-key minibuffer-local-completion-map " " TeX-tmp-space-must-match)
-  (define-key minibuffer-local-must-match-map " " TeX-tmp-space-must-match)
-  (setq crm-separator crm-default-separator))
+  (define-key minibuffer-local-must-match-map " " TeX-tmp-space-must-match)))
 
 (defun TeX-arg-define-siunitx-unit (optional &optional prompt)
   "Prompt for a LaTeX siunitx unit, prefix, power, and qualifier.
