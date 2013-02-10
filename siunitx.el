@@ -31,6 +31,12 @@
 
 (TeX-auto-add-type "siunitx-unit" "LaTeX")
 
+;; Add definition of `siunitx-unit' type in parsed file.  This avoids possible
+;; error (`LaTeX-add-siunitx-units' function undefined) when reopening a LaTeX
+;; source code from which `siunitx' package had been previously removed.
+(add-to-list 'TeX-auto-store-pre-string
+	     "(TeX-auto-add-type \"siunitx-unit\" \"LaTeX\")")
+
 ;; Self Parsing -- see (info "(auctex)Hacking the Parser").  `\\(?:\\[.*\\]\\)?'
 ;; matches possible options (actually used only by `DeclareSIUnit' macro),
 ;; wrapped in `[...]'.
@@ -49,7 +55,7 @@
 (defun LaTeX-siunitx-cleanup ()
   "Move symbols from `LaTeX-auto-siunitx-unit' to `LaTeX-siunitx-unit-list'."
   (mapcar (lambda (symbol)
-	    (setq LaTeX-siunitx-unit-list (cons symbol LaTeX-auto-siunitx-unit)))
+	    (add-to-list 'LaTeX-siunitx-unit-list (list symbol)))
 	  LaTeX-auto-siunitx-unit))
 
 ;; FIXME: This does not seem to work unless one does a manual reparse.
