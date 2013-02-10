@@ -395,7 +395,7 @@ string."
     "\\per"
     "\\of")
    ;; Abbreviated units (available unless `abbreviations' option is set to `false')
-   (unless (TeX-member "abbreviations[ \t]*=[ \t]*false" TeX-active-styles 'string-match)
+   (unless (member "abbreviations=false" TeX-active-styles)
      (LaTeX-add-siunitx-units
       "\\fg"
       "\\pg"
@@ -485,7 +485,7 @@ string."
       "\\dB"))
    ;; Binary prefixes and units available when `binary-units' option is used
    (when (or (member "binary-units" TeX-active-styles)
-	     (TeX-member "binary-units[ \t]*=[ \t]*true" TeX-active-styles 'string-match))
+	     (member "binary-units=true" TeX-active-styles))
      (LaTeX-add-siunitx-units
       "\\kibi"
       "\\mebi"
@@ -508,7 +508,7 @@ string."
     "\\SIUnitSymbolOhm")
    ;; Macros available when `version-1-compatibility' option is used
    (when (or (member "version-1-compatibility" TeX-active-styles)
-	     (TeX-member "version-1-compatibility[ \t]*=[ \t]*true" TeX-active-styles 'string-match))
+	     (member "version-1-compatibility=true" TeX-active-styles))
      (LaTeX-add-siunitx-units
       "\\Square"
       "\\ssquare"
