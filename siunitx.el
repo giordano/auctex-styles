@@ -71,8 +71,8 @@ initially, with point positioned at the end.  If DEFINITION is
 non-nil, add the chosen unit to the list of defined units."
   ;; Remove <SPC> key bindings in minibuffer and set completion
   ;; separator to <SPC>.
-  (let ((TeX-tmp-space-completion (lookup-key minibuffer-local-completion-map " "))
-	(TeX-tmp-space-must-match (lookup-key minibuffer-local-must-match-map " "))
+  (let ((space-completion (lookup-key minibuffer-local-completion-map " "))
+	(space-must-match (lookup-key minibuffer-local-must-match-map " "))
 	(crm-separator " "))
     (define-key minibuffer-local-completion-map " " nil)
     (define-key minibuffer-local-must-match-map " " nil)
@@ -85,8 +85,8 @@ non-nil, add the chosen unit to the list of defined units."
 	  (LaTeX-add-siunitx-units unit))
       (TeX-argument-insert unit optional))
   ;; Restore <SPC> key bindings in minibuffer.
-  (define-key minibuffer-local-completion-map " " TeX-tmp-space-must-match)
-  (define-key minibuffer-local-must-match-map " " TeX-tmp-space-must-match)))
+  (define-key minibuffer-local-completion-map " " space-completion)
+  (define-key minibuffer-local-must-match-map " " space-must-match)))
 
 (defun TeX-arg-define-siunitx-unit (optional &optional prompt)
   "Prompt for a LaTeX siunitx unit, prefix, power, and qualifier.

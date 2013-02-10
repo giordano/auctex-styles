@@ -1,4 +1,5 @@
 ChangeLog
+*.patch
 *.elc
 auto/*
 \#*
