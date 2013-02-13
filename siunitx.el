@@ -31,18 +31,13 @@
 
 (TeX-auto-add-type "siunitx-unit" "LaTeX")
 
-;; Add definition of `siunitx-unit' type in parsed file.  This avoids possible
-;; error (`LaTeX-add-siunitx-units' function undefined) when reopening a LaTeX
-;; source code from which `siunitx' package had been previously removed.
-(add-to-list 'TeX-auto-store-pre-string
-	     "(TeX-auto-add-type \"siunitx-unit\" \"LaTeX\")")
-
 ;; Self Parsing -- see (info "(auctex)Hacking the Parser").  `\\(?:\\[.*\\]\\)?'
 ;; matches possible options (actually used only by `DeclareSIUnit' macro),
 ;; wrapped in `[...]'.
 (defvar LaTeX-siunitx-regexp
-  '("\\\\Declare\\(?:SIUnit\\|SIPrefix\\|BinaryPrefix\\|SIPostPower\\|SIPrepower\\|SIQualifier\\)\
-[ \t\n\r]*\\(?:\\[.*\\]\\)?[ \t\n\r]*{?\\(\\\\[A-Za-z]+\\)}?" 1 LaTeX-auto-siunitx-unit)
+  (concat "\\\\Declare"
+	  "\\(?:SIUnit\\|SIPrefix\\|BinaryPrefix\\|SIPostPower\\|SIPrepower\\|SIQualifier\\)"
+	  "[ \t\n\r]*\\(?:\\[.*\\]\\)?[ \t\n\r]*{?\\(\\\\[A-Za-z]+\\)}?")
   "Matches new siunitx unit, prefix, power, and qualifier definitions.")
 
 (defvar LaTeX-auto-siunitx-unit nil
@@ -268,7 +263,7 @@ string."
 (TeX-add-style-hook
  "siunitx"
  (lambda ()
-   (TeX-auto-add-regexp LaTeX-siunitx-regexp)
+   (TeX-auto-add-regexp `(,LaTeX-siunitx-regexp 1 LaTeX-auto-siunitx-unit))
    (TeX-add-symbols
     ;; Numbers
     '("ang" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Angle")
