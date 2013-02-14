@@ -79,9 +79,9 @@ non-nil, add the chosen unit to the list of defined units."
       (if (and definition (not (string-equal "" unit)))
 	  (LaTeX-add-siunitx-units unit))
       (TeX-argument-insert unit optional))
-  ;; Restore <SPC> key bindings in minibuffer.
-  (define-key minibuffer-local-completion-map " " space-completion)
-  (define-key minibuffer-local-must-match-map " " space-must-match)))
+    ;; Restore <SPC> key bindings in minibuffer.
+    (define-key minibuffer-local-completion-map " " space-completion)
+    (define-key minibuffer-local-must-match-map " " space-must-match)))
 
 (defun TeX-arg-define-siunitx-unit (optional &optional prompt)
   "Prompt for a LaTeX siunitx unit, prefix, power, and qualifier.
@@ -276,7 +276,7 @@ string."
     '("SIlist" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Values" TeX-arg-siunitx-unit)
     '("SIrange" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Value 1" "Value 2" TeX-arg-siunitx-unit)
     ;; Settings
-    '("sisetup" (TeX-arg-key-val LaTeX-siunitx-package-options))
+    '("sisetup" LaTeX-siunitx-package-options)
     ;; Tabular material
     '("tablenum" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Number")
     ;; Creating new macros (`DeclareSIUnitWithOptions' macro is deprecated)
@@ -595,10 +595,10 @@ string."
 				("highlight" "{"))
    			      'function))))
 
-(defun LaTeX-siunitx-package-options nil
-  "Prompt for package options for the siunitx package."
-  (let ((options
-	 (TeX-arg-key-val nil LaTeX-siunitx-package-options)))
+(defun LaTeX-siunitx-package-options (ignore)
+  "Prompt for package options for the siunitx package.
+IGNORE is ignored."
+  (let ((options (TeX-arg-key-val nil LaTeX-siunitx-package-options)))
     options))
 
 ;; siunitx.el ends here

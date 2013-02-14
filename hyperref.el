@@ -159,7 +159,7 @@
    ;; hyperref.sty loads url.sty
    (TeX-run-style-hooks "url")
    (TeX-add-symbols
-    '("hypersetup" (TeX-arg-key-val LaTeX-hyperref-package-options))
+    '("hypersetup" LaTeX-hyperref-package-options)
     '("href" [ (TeX-arg-key-val LaTeX-hyperref-href-options) ] "URL" "Text")
     '("nolinkurl" t)
     '("hyperbaseurl" t)
@@ -226,10 +226,10 @@
    (when (fboundp 'reftex-ref-style-activate)
      (reftex-ref-style-activate "Hyperref"))))
 
-(defun LaTeX-hyperref-package-options nil
-  "Prompt for package options for the hyperref package."
-  (let ((options
-	 (TeX-arg-key-val nil LaTeX-hyperref-package-options)))
+(defun LaTeX-hyperref-package-options (ignore)
+  "Prompt for package options for the hyperref package.
+IGNORE is ignored."
+  (let ((options (TeX-arg-key-val nil LaTeX-hyperref-package-options)))
     options))
 
 ;;; hyperref.el ends here

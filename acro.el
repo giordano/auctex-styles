@@ -1,4 +1,4 @@
-;;; acro.el --- AUCTeX style for `acro.sty'.
+;;; acro.el --- AUCTeX style for `acro.sty' version 1.2.
 
 ;; Copyright (C) 2013 Free Software Foundation, Inc.
 
@@ -25,151 +25,197 @@
 
 ;;; Commentary:
 
-;; This file adds support for `acro.sty'.
+;; This file adds support for `acro.sty' version 1.2.
 
 ;;; Code:
 
 (defvar LaTeX-acro-package-options
   '(;; General Options
+    ("version" ("0" "1"))
     ("single" ("true" "false"))
     ("hyperref" ("true" "false"))
+    ("record-pages" ("true" "false"))
     ("only-used" ("true" "false"))
+    ("mark-as-used" ("first" "any"))
     ("macros" ("true" "false"))
     ("xspace" ("true" "false"))
+    ("strict" ("true" "false"))
     ("sort" ("true" "false"))
     ("cite" ("all" "first" "none"))
     ("cite-cmd")
     ("cite-space")
+    ("index-cmd")
+    ("accsupp" ("true" "false"))
     ("uc-cmd")
     ;; Options Regarding Acronyms
     ("short-format")
     ("long-format")
+    ("first-long-format")
+    ("list-short-format")
     ("list-long-format")
     ("extra-format")
-    ("first-style" ("default" "plain" "footnote" "square" "short" "reversed" "plain-reversed"))
+    ("first-style" ("default" "plain" "empty" "square" "short" "reversed"
+		    "plain-reversed" "footnote" "sidenote"))
     ("extra-style" ("default" "plain" "comma" "paren" "bracket"))
     ("plural-ending")
     ;; Options Regarding the List
     ("page-ref" ("none" "plain" "comma" "paren"))
     ("page-name")
+    ("page-names")
+    ("page-ranges" ("true" "false"))
+    ("next-page")
+    ("next-pages")
     ("list-type" ("table" "itemize" "description"))
-    ("list-style" ("list" "tabular" "longtable" "extra-tabular" "extra-longtable" "extra-tabular-rev" "extra-longtable-rev"))
-    ("list-header" ("chapter" "chapter*" "section" "section*" "subsection" "subsection*"))
+    ("list-style" ("list" "tabular" "longtable" "extra-tabular" "extra-longtable"
+		   "extra-tabular-rev" "extra-longtable-rev"))
+    ("list-header" ("chapter" "chapter*" "section" "section*" "subsection"
+		    "subsection*" "addchap" "addsec"))
     ("list-name")
     ("list-table-width")
     ("list-caps" ("true" "false")))
   "Package options for the acro package.")
 
-(TeX-auto-add-type "acronym" "LaTeX")
+(TeX-auto-add-type "acro-acronym" "LaTeX")
 
 ;; Self Parsing -- see (info "(auctex)Hacking the Parser").
 (defvar LaTeX-acro-regexp
-  '("\\\\DeclareAcronym\\*?{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acro)
-  "Matches acronym.")
+  "\\\\DeclareAcronym{\\([^\n\r%\\{}]+\\)}"
+  "Matches `acro' acronym definitions.")
 
-(defvar LaTeX-auto-acro nil
-  "Temporary for parsing acronym definitions.")
+(defvar LaTeX-auto-acro-acronym nil
+  "Temporary for parsing `acro' acronym definitions.")
 
 (defun LaTeX-acro-prepare ()
-  "Clear `LaTex-auto-acro' before use."
-  (setq LaTeX-auto-acro nil))
+  "Clear `LaTex-auto-acro-acronym' before use."
+  (setq LaTeX-auto-acro-acronym nil))
 
 (defun LaTeX-acro-cleanup ()
-  "Move symbols from `LaTeX-auto-acro' to `LaTeX-acro-list' and to
-`TeX-auto-symbol' if option `macros' is set to `true'."
+  "Move symbols from `LaTeX-auto-acro-acronym' to `LaTeX-acro-list'
+ and to `TeX-auto-symbol' if option `macros' is set to `true'."
   (mapcar (lambda (symbol)
-	    (setq LaTeX-acronym-list (cons symbol LaTeX-auto-acronym)))
-	  LaTeX-auto-acronym)
+	    (add-to-list 'LaTeX-acro-acronym-list (list symbol)))
+	  LaTeX-auto-acro-acronym)
   (when (or (member "macros" TeX-active-styles)
 	    (member "macros=true" TeX-active-styles))
-    (add-to-list 'LaTeX-acronym-list TeX-auto-symbol)))
+    (add-to-list 'TeX-auto-symbol LaTeX-auto-acro-acronym)))
 
 ;; FIXME: This does not seem to work unless one does a manual reparse.
 (add-hook 'TeX-auto-prepare-hook 'LaTeX-acro-prepare)
 (add-hook 'TeX-auto-cleanup-hook 'LaTeX-acro-cleanup)
 
-(defun TeX-arg-acronym (optional &optional prompt definition)
+(defun LaTeX-arg-acro-acronym (optional &optional prompt definition)
   "Prompt for an acronym completing with known acronyms.
 If OPTIONAL is non-nil, insert the resulting value as an optional
 argument, otherwise as a mandatory one.  Use PROMPT as the prompt
 string.  If DEFINITION is non-nil, add the chosen acronym to the
 list of defined acronyms."
   (let ((acronym (completing-read (TeX-argument-prompt optional prompt "Acronym")
-				  (LaTeX-acronym-list))))
+				  (LaTeX-acro-acronym-list))))
     (if (and definition (not (string-equal "" acronym)))
-	(LaTeX-add-acronyms acronym))
+	(LaTeX-add-acro-acronyms acronym))
     (TeX-argument-insert acronym optional optional)))
 
-(defun TeX-arg-define-acronym (optional &optional prompt)
+(defun LaTeX-arg-define-acro-acronym (optional &optional prompt)
   "Prompt for an acronym completing with known acronyms.
 If OPTIONAL is non-nil, insert the resulting value as an optional
 argument, otherwise as a mandatory one.  Use PROMPT as the prompt
 string."
-  (TeX-arg-acronym optional prompt t))
+  (LaTeX-arg-acro-acronym optional prompt t))
 
-(defun LaTeX-acronym-optional-argument (ignore)
-  "Prompt for additional information for acronym,
-insert surrounded by curly braces only if string is not of
-zero length."
-  (let ((addinfo (read-string "Additional information: ")))
-    (unless (zerop (length addinfo))
-      (insert TeX-grop addinfo TeX-grcl))))
+(defvar LaTeX-acro-declareacronym-keys
+  '(("short") ("long") ("short-plural") ("long-plural") ("long-plural-form")
+    ("short-indefinite") ("long-indefinite") ("long-pre") ("long-post") ("alt")
+    ("alt-indefinite") ("extra") ("sort") ("class") ("cite") ("short-format")
+    ("long-format") ("first-long-format") ("pdfstring") ("accsupp")
+    ("index-sort") ("index") ("index-cmd"))
+  "List of keys accepted by `\DeclareAcronym' macro of `acro' package
+in its second mandatory argument.")
+
+(defvar LaTeX-acro-printacronyms-keys
+  '(("include-classes") ("exclude-classes") ("name") ("header"))
+  "List of keys accepted by `\printacronyms' macro of `acro' package
+in its optional argument.")
+
+(defun LaTeX-arg-acro-key-val (optional prompt key-val-alist)
+  "Prompt for keys and values in KEY-VAL-ALIST.
+<SPC> key bindings in minibuffer are removed.  Insert the given
+value as a TeX macro argument.  If OPTIONAL is non-nil, insert it
+as an optional argument.  Use PROMPT as the prompt string.
+KEY-VAL-ALIST is an alist.  The car of each element should be a
+string representing a key and the optional cdr should be a list
+with strings to be used as values for the key."
+  ;; Remove <SPC> key bindings in minibuffer.
+  (let ((space-completion (lookup-key minibuffer-local-completion-map " "))
+	(space-must-match (lookup-key minibuffer-local-must-match-map " ")))
+    (define-key minibuffer-local-completion-map " " nil)
+    (define-key minibuffer-local-must-match-map " " nil)
+    (let ((var (multi-prompt-key-value (TeX-argument-prompt optional prompt nil)
+				       (eval key-val-alist))))
+      (TeX-argument-insert var optional))
+    ;; Restore <SPC> key bindings in minibuffer.
+    (define-key minibuffer-local-completion-map " " space-completion)
+    (define-key minibuffer-local-must-match-map " " space-must-match)))
 
 (TeX-add-style-hook
  "acro"
  (lambda ()
-   (TeX-auto-add-regexp LaTeX-acronym-regexp)
+   (TeX-auto-add-regexp `(,LaTeX-acro-regexp 1 LaTeX-auto-acro-acronym))
    (TeX-add-symbols
-    ;; Creating new acronyms
-    '("DeclareAcronym" TeX-arg-define-acronym "Short form, optional plural ending" [ "Alternative short form" ]
-      "Long form, optional plural ending" LaTeX-acronym-optional-argument [ "Class" ])
-    '("DeclareAcronym*" TeX-arg-define-acronym "Short form, optional plural ending" [ "Alternative short form" ]
-      "Long form, optional plural form" LaTeX-acronym-optional-argument [ "Class" ])
-    '("DeclareAcronymFormat" TeX-arg-acronym "Format")
-    '("DeclareAcronymCitation" TeX-arg-acronym [ "Pre" ] [ "Post" ] TeX-arg-cite)
-    '("DeclareAcronymPDFString" TeX-arg-acronym "PDF entry, optional plural ending")
+    ;; Creating New Acronyms
+    '("DeclareAcronym" LaTeX-arg-define-acro-acronym
+      (LaTeX-arg-acro-key-val "Definition of acronym (k=v)"
+			      LaTeX-acro-declareacronym-keys))
     ;; Using the Acronyms
-    '("ac" TeX-arg-acronym)
-    '("ac*" TeX-arg-acronym)
-    '("Ac" TeX-arg-acronym)
-    '("Ac*" TeX-arg-acronym)
-    '("acs" TeX-arg-acronym)
-    '("acs*" TeX-arg-acronym)
-    '("acl" TeX-arg-acronym)
-    '("acl*" TeX-arg-acronym)
-    '("aca" TeX-arg-acronym)
-    '("aca*" TeX-arg-acronym)
-    '("acf" TeX-arg-acronym)
-    '("acf*" TeX-arg-acronym)
-    '("Acf" TeX-arg-acronym)
-    '("Acf*" TeX-arg-acronym)
-    '("acp" TeX-arg-acronym)
-    '("acp*" TeX-arg-acronym)
-    '("Acp" TeX-arg-acronym)
-    '("Acp*" TeX-arg-acronym)
-    '("acsp" TeX-arg-acronym)
-    '("acsp*" TeX-arg-acronym)
-    '("aclp" TeX-arg-acronym)
-    '("aclp*" TeX-arg-acronym)
-    '("Aclp" TeX-arg-acronym)
-    '("Aclp*" TeX-arg-acronym)
-    '("acap" TeX-arg-acronym)
-    '("acap*" TeX-arg-acronym)
-    '("acfp" TeX-arg-acronym)
-    '("acfp*" TeX-arg-acronym)
-    '("Acfp" TeX-arg-acronym)
-    '("Acfp*" TeX-arg-acronym)
+    '("ac" LaTeX-arg-acro-acronym)
+    '("ac*" LaTeX-arg-acro-acronym)
+    '("Ac" LaTeX-arg-acro-acronym)
+    '("Ac*" LaTeX-arg-acro-acronym)
+    '("acs" LaTeX-arg-acro-acronym)
+    '("acs*" LaTeX-arg-acro-acronym)
+    '("acl" LaTeX-arg-acro-acronym)
+    '("acl*" LaTeX-arg-acro-acronym)
+    '("Acl" LaTeX-arg-acro-acronym)
+    '("Acl*" LaTeX-arg-acro-acronym)
+    '("aca" LaTeX-arg-acro-acronym)
+    '("aca*" LaTeX-arg-acro-acronym)
+    '("acf" LaTeX-arg-acro-acronym)
+    '("acf*" LaTeX-arg-acro-acronym)
+    '("Acf" LaTeX-arg-acro-acronym)
+    '("Acf*" LaTeX-arg-acro-acronym)
+    '("acp" LaTeX-arg-acro-acronym)
+    '("acp*" LaTeX-arg-acro-acronym)
+    '("Acp" LaTeX-arg-acro-acronym)
+    '("Acp*" LaTeX-arg-acro-acronym)
+    '("acsp" LaTeX-arg-acro-acronym)
+    '("acsp*" LaTeX-arg-acro-acronym)
+    '("aclp" LaTeX-arg-acro-acronym)
+    '("aclp*" LaTeX-arg-acro-acronym)
+    '("Aclp" LaTeX-arg-acro-acronym)
+    '("Aclp*" LaTeX-arg-acro-acronym)
+    '("acap" LaTeX-arg-acro-acronym)
+    '("acap*" LaTeX-arg-acro-acronym)
+    '("acfp" LaTeX-arg-acro-acronym)
+    '("acfp*" LaTeX-arg-acro-acronym)
+    '("Acfp" LaTeX-arg-acro-acronym)
+    '("Acfp*" LaTeX-arg-acro-acronym)
+    ;; Simulating the First Appearance
+    '("acflike" LaTeX-arg-acro-acronym)
+    '("acflike*" LaTeX-arg-acro-acronym)
+    '("acplike" LaTeX-arg-acro-acronym)
+    '("acplike*" LaTeX-arg-acro-acronym)
+    ;; Reset or Mark as Used
     '("acreset" "List of acronyms")
     '("acresetall" 0)
     '("acuse" "List of acronyms")
     '("acuseall" 0)
     ;; PDF bookmarks
-    '("acpdfstring" TeX-arg-acronym)
-    '("acpdfstringplural" TeX-arg-acronym)
+    '("acpdfstring" LaTeX-arg-acro-acronym)
+    '("acpdfstringplural" LaTeX-arg-acro-acronym)
     ;; Printing the List
-    '("printacronyms" "List of classes" [ "List of excluded classes" ])
+    '("printacronyms" [LaTeX-arg-acro-key-val "Options (k=v)"
+					      LaTeX-acro-printacronyms-keys])
     ;; Customization
-    '("acsetup" (TeX-arg-key-val LaTeX-acro-package-options)))
+    '("acsetup" LaTeX-acro-package-options))
    (TeX-run-style-hooks
     "l3sort"
     "xspace"
@@ -181,17 +227,12 @@ zero length."
    ;; Fontification
    (when (and (featurep 'font-latex)
 	      (eq TeX-install-font-lock 'font-latex-setup))
-     (font-latex-add-keywords '(;; last two arguments of DeclareAcronym (should
-				;; be "{[") are both optional, we don't need to
-				;; explicit list them here
-				("DeclareAcronym" "*{{[{")
-				("DeclareAcronymFormat" "{{")
-				("DeclareAcronymCitation" "{[[{")
-				("DeclareAcronymPDFString" "{{")
+     (font-latex-add-keywords '(("DeclareAcronym" "{{")
 				("ac" "*{")
 				("Ac" "*{")
 				("acs" "*{")
 				("acl" "*{")
+				("Acl" "*{")
 				("aca" "*{")
 				("acf" "*{")
 				("Acf" "*{")
@@ -203,7 +244,15 @@ zero length."
 				("acap" "*{")
 				("acfp" "*{")
 				("Acfp" "*{")
+				("acflike" "*{")
+				("acplike" "*{")
 				("acuse" "{"))
 			      'function))))
+
+(defun LaTeX-acro-package-options (ignore)
+  "Prompt for package options for the acro package.
+IGNORE is ignored."
+  (let ((options (TeX-arg-key-val nil LaTeX-acro-package-options)))
+    options))
 
 ;;; acro.el ends here
