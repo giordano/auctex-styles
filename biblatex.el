@@ -1,8 +1,8 @@
-;;; biblatex.el --- AUCTeX style for `biblatex.sty'
+;;; biblatex.el --- AUCTeX style for `biblatex.sty' version 2.5.
 
 ;; Copyright (C) 2012-2013 Free Software Foundation, Inc.
 
-;; Author: Ralf Angeli <angeli@caeruleus.net>
+;; Author: Ralf Angeli <angeli@caeruleus.net>, Mosè Giordano
 ;; Maintainer: auctex-devel@gnu.org
 ;; Created: 2012-11-14
 ;; Keywords: tex
@@ -26,7 +26,7 @@
 
 ;;; Commentary:
 
-;; This file adds support for `biblatex.sty'.
+;; This file adds support for `biblatex.sty' version 2.5.
 
 ;;; Code:
 
@@ -38,10 +38,122 @@
    (unless (or (member "backend=bibtex" TeX-active-styles)
 	       (member "backend=bibtex8" TeX-active-styles)
 	       (member "backend=bibtexu" TeX-active-styles))
-     (setq LaTeX-using-Biber t))))
+     (setq LaTeX-using-Biber t))
 
-;; TODO: Add package options.
-(defvar LaTeX-biblatex-package-options nil
+   (TeX-run-style-hooks
+    "etoolbox"
+    "keyval"
+    "kvoptions"
+    "logreq"
+    "ifthen"
+    "url")))
+
+(defvar LaTeX-biblatex-package-options
+  '(;;; Load-time Options
+    ("backend" ("biber" "bibtex" "bibtexu" "bibtex8"))
+    ("style") ;; TODO: completion for all available (cite/bib)styles
+    ("bibstyle") ;; TODO: completion for all available bibstyles
+    ("citestyle") ;; TODO: completion for all available citestyles
+    ("natbib" ("true" "false"))
+    ("mcite" ("true" "false"))
+    ;;; Preamble Options
+    ;; General
+    ("sorting" ("nty" "nyt" "nyvt" "anyt" "anyvt" "ynt" "ydnt" "none" "debug"))
+    ("sortcase" ("true" "false"))
+    ("sortupper" ("true" "false"))
+    ("sortlocale")
+    ("sortlos" ("bib" "los"))
+    ("related" ("true" "false"))
+    ("sortcites" ("true" "false"))
+    ("maxnames")
+    ("minnames")
+    ("maxbibnames")
+    ("minbibnames")
+    ("maxcitenames")
+    ("mincitenames")
+    ("maxitems")
+    ("minitems")
+    ("autocite" ("plain" "inline" "footnote" "superscript"))
+    ("autopunct" ("true" "false"))
+    ("language" ("auto" "catalan" "czech" "danish" "dutch" "american" "british"
+		 "canadian" "australian" "newzealand" "finnish" "french"
+		 "german" "austrian" "ngernam" "naustrian" "greek" "italian"
+		 "norwegian" "brazilian" "portuguese" "russian" "spanish"
+		 "swedish"))
+    ("clearlang" ("true" "false"))
+    ("babel" ("none" "hyphen" "other" "other*"))
+    ("block" ("none" "space" "par" "nbpar" "ragged"))
+    ("notetype" ("foot+end" "footonly" "endonly"))
+    ("hyperref" ("true" "false"))
+    ("backref" ("true" "false"))
+    ("backrefstyle" ("none" "three" "two" "two+" "three+" "all+"))
+    ("backrefsetstyle" ("setonly" "memonly" "setormem" "setandmem" "memandset" "setplusmem"))
+    ("indexing" ("true" "false" "cite" "bib"))
+    ("loadfiles" ("true" "false"))
+    ("refsection" ("none" "part" "chapter" "section" "subsection"))
+    ("refsegment" ("none" "part" "chapter" "section" "subsection"))
+    ("citereset" ("none" "part" "chapter" "section" "subsection"))
+    ("abbreviate" ("true" "false"))
+    ("date" ("short" "long" "terse" "comp" "iso8601"))
+    ("origdate" ("short" "long" "terse" "comp" "iso8601"))
+    ("eventdate" ("short" "long" "terse" "comp" "iso8601"))
+    ("urldate" ("short" "long" "terse" "comp" "iso8601"))
+    ("alldates" ("short" "long" "terse" "comp" "iso8601"))
+    ("datezeros" ("true" "false"))
+    ("dateabbrev" ("true" "false"))
+    ("defernumbers" ("true" "false"))
+    ("punctfont" ("true" "false"))
+    ("arxiv" ("abs" "ps" "pdf" "format"))
+    ("texencoding" ("auto"))
+    ("bibencoding" ("auto"))
+    ("safeinputenc" ("true" "false"))
+    ("bibwarn" ("true" "false"))
+    ("mincrossrefs")
+    ;; Style-specific
+    ("isbn" ("true" "false"))
+    ("url" ("true" "false"))
+    ("doi" ("true" "false"))
+    ("eprint" ("true" "false"))
+    ;; Internal
+    ("pagetracker" ("true" "false" "page" "spread"))
+    ("citecounter" ("true" "false" "context"))
+    ("citetracker" ("true" "false" "context" "strict" "constrict"))
+    ("ibidtracker" ("true" "false" "context" "strict" "constrict"))
+    ("opcittracker" ("true" "false" "context" "strict" "constrict"))
+    ("loccittracker" ("true" "false" "context" "strict" "constrict"))
+    ("idemtracker" ("true" "false" "context" "strict" "constrict"))
+    ("parentracker" ("true" "false"))
+    ("maxparens")
+    ("firstinits" ("true" "false"))
+    ("sortfirstinits" ("true" "false"))
+    ("tersefirstinits" ("true" "false"))
+    ("labelalpha" ("true" "false"))
+    ("maxalphanames")
+    ("minalphanames")
+    ("labelnum" ("true" "false"))
+    ("labeltitle" ("true" "false"))
+    ("labeltitleyear" ("true" "false"))
+    ("labelyear" ("true" "false"))
+    ("singletitle" ("true" "false"))
+    ("uniquename" ("true" "false" "init" "full" "allinit" "allfull" "mininit" "minfull"))
+    ("uniquelist" ("true" "false" "minyear"))
+    ;;; Entry Options
+    ;; Preamble/Type/Entry Options
+    ("useauthor" ("true" "false"))
+    ("useeditor" ("true" "false"))
+    ("usetranslator" ("true" "false"))
+    ("useprefix" ("true" "false"))
+    ("indexing" ("true" "false" "cite" "bib"))
+    ;; Type/Entry Options are not available globally.
+    ;; Legacy Options (deprecated)
+    ("openbib"))
   "Package options for the biblatex package.")
+
+(defun LaTeX-biblatex-package-options nil
+  "Prompt for package options for the biblatex package."
+  (let ((options
+	 (TeX-arg-key-val nil LaTeX-biblatex-package-options)))
+    options))
+
 
 ;;; biblatex.el ends here
