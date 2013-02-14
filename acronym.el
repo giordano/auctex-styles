@@ -1,4 +1,4 @@
-;;; acronym.el --- AUCTeX style for `acronym.sty'.
+;;; acronym.el --- AUCTeX style for `acronym.sty' version 1.38.
 
 ;; Copyright (C) 2013 Free Software Foundation, Inc.
 
@@ -25,7 +25,7 @@
 
 ;;; Commentary:
 
-;; This file adds support for `acronym.sty'.
+;; This file adds support for `acronym.sty' version 1.38.
 
 ;;; Code:
 
@@ -33,7 +33,7 @@
 
 ;; Self Parsing -- see (info "(auctex)Hacking the Parser").
 (defvar LaTeX-acronym-regexp
-  '("\\\\acro{\\([^\n\r%\\{}]+\\)}" 1 LaTeX-auto-acronym)
+  "\\\\acro{\\([^\n\r%\\{}]+\\)}"
   "Matches acronym.")
 
 (defvar LaTeX-auto-acronym nil
@@ -46,7 +46,7 @@
 (defun LaTeX-acronym-cleanup ()
   "Move symbols from `LaTeX-auto-acronym' to `LaTeX-acronym-list'."
   (mapcar (lambda (symbol)
-	    (setq LaTeX-acronym-list (cons symbol LaTeX-auto-acronym)))
+	    (add-to-list 'LaTeX-acronym-list (list symbol)))
 	  LaTeX-auto-acronym))
 
 ;; FIXME: This does not seem to work unless one does a manual reparse.
@@ -75,7 +75,7 @@ string."
 (TeX-add-style-hook
  "acronym"
  (lambda ()
-   (TeX-auto-add-regexp LaTeX-acronym-regexp)
+   (TeX-auto-add-regexp `(,LaTeX-acronym-regexp 1 LaTeX-auto-acronym))
    (LaTeX-add-environments
     '("acronym" LaTeX-env-args
       [TeX-arg-string "Longest acronym"]))
