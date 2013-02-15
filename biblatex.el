@@ -262,12 +262,10 @@
     '("savefieldformat" ["argument"] 1)
     '("RequireBiber" ["argument"] 0)
     "nolinkurl"
-    "NumcheckSetup"
     "ppspace"
     "sqspace"
     "RNfont"
     "Rnfont"
-    "blx"
     "bibleftparen"
     "bibrightparen"
     "bibleftbracket"
@@ -301,8 +299,6 @@
     "theparenlevel"
     "frenchspacing"
     "nonfrenchspacing"
-    "RN"
-    "Rn"
     "newblock"
     "pno"
     "ppno"
@@ -314,14 +310,6 @@
     "MakeLowercase"
     "currentfield"
     "currentname"
-    "bibinitperiod"
-    "bibinitdelim"
-    "bibinithyphendelim"
-    "bibnamedelima"
-    "bibnamedelimb"
-    "bibnamedelimc"
-    "bibnamedelimd"
-    "bibnamedelimi"
     "currentlist"
     "finentry"
     "i"
@@ -380,8 +368,6 @@
     "category"
     "the"
     "skipentry"
-    "newrefsection"
-    "newrefsegment"
     "nocite"
     "blxmciteicmd"
     "blxmcites"
@@ -440,7 +426,6 @@
     "ifsingletitle"
     "ifandothers"
     "noexpand"
-    "mkbibsuperscript"
     "labelalphaothers"
     "sortalphaothers"
     "protect"
@@ -616,11 +601,10 @@
     ("openbib"))
   "Package options for the biblatex package.")
 
-(defun LaTeX-biblatex-package-options nil
-  "Prompt for package options for the biblatex package."
-  (let ((options
-	 (TeX-arg-key-val nil LaTeX-biblatex-package-options)))
+(defun LaTeX-biblatex-package-options (ignore)
+  "Prompt for package options for the biblatex package.
+IGNORE is ignored."
+  (let ((options (TeX-arg-key-val nil LaTeX-biblatex-package-options)))
     options))
-
 
 ;;; biblatex.el ends here

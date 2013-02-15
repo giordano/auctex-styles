@@ -51,7 +51,7 @@
 
 ;; `firstpagestyle' and `headers' options for `indexsetup' macro are
 ;; available only if `fancyhdr' is not loaded.  The following code
-;; works only if `imakeidx' is loaded before `fancyhdr'
+;; works only if `imakeidx' is loaded after `fancyhdr'.
 (unless (member "fancyhdr" TeX-active-styles)
   (setq LaTeX-imakeidx-indexsetup-options
 	(append LaTeX-imakeidx-indexsetup-options
