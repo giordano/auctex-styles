@@ -67,7 +67,7 @@
     ("vtex")
     ("vtexpdfmark")
     ("xetex")
-    ;;  Extension options
+    ;; Extension options
     ("extension")
     ("hyperfigures" ("true" "false"))
     ("backref" ("section" "slide" "page" "none" "false"))
@@ -159,8 +159,8 @@
    ;; hyperref.sty loads url.sty
    (TeX-run-style-hooks "url")
    (TeX-add-symbols
-    '("hypersetup" LaTeX-hyperref-package-options)
-    '("href" [ (TeX-arg-key-val LaTeX-hyperref-href-options) ] "URL" "Text")
+    '("hypersetup" (TeX-arg-key-val LaTeX-hyperref-package-options))
+    '("href" [TeX-arg-key-val LaTeX-hyperref-href-options] "URL" "Text")
     '("nolinkurl" t)
     '("hyperbaseurl" t)
     '("hyperimage" "Image URL" "Text")
@@ -226,10 +226,14 @@
    (when (fboundp 'reftex-ref-style-activate)
      (reftex-ref-style-activate "Hyperref"))))
 
-(defun LaTeX-hyperref-package-options (optional)
-  "Prompt for package options for the hyperref package.  If
-OPTIONAL is non-nil, insert it as an optional argument."
-  (let ((options (TeX-arg-key-val optional LaTeX-hyperref-package-options)))
+(defun LaTeX-hyperref-package-options nil
+  "Prompt for package options for the hyperref package."
+  ;; Can't use directly `TeX-arg-key-val' because that would insert an empty
+  ;; `[]' after `\usepackage' when `options' is empty.
+  (let ((options (multi-prompt-key-value
+		  (TeX-argument-prompt optional "Options (k=v)" nil)
+		  LaTeX-hyperref-package-options)))
     options))
+
 
 ;;; hyperref.el ends here

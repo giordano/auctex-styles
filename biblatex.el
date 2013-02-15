@@ -500,12 +500,12 @@
     "bibparsep"
     "bibhang")))
 
-(defvar LaTeX-biblatex-package-options
+(defvar LaTeX-biblatex-package-options-list
   '(;;; Load-time Options
     ("backend" ("biber" "bibtex" "bibtexu" "bibtex8"))
-    ("style") ;; TODO: completion for all available (cite/bib)styles
-    ("bibstyle") ;; TODO: completion for all available bibstyles
-    ("citestyle") ;; TODO: completion for all available citestyles
+    ("style" BibLaTeX-global-style-files)
+    ("bibstyle" BibLaTeX-global-style-files)
+    ("citestyle" BibLaTeX-global-style-files)
     ("natbib" ("true" "false"))
     ("mcite" ("true" "false"))
     ;;; Preamble Options
@@ -601,10 +601,29 @@
     ("openbib"))
   "Package options for the biblatex package.")
 
-(defun LaTeX-biblatex-package-options (optional)
-  "Prompt for package options for the biblatex package.  If
-OPTIONAL is non-nil, insert it as an optional argument."
-  (let ((options (TeX-arg-key-val optional LaTeX-biblatex-package-options)))
+(defun LaTeX-biblatex-package-options nil
+  "Prompt for package options for the biblatex package."
+  (unless BibLaTeX-global-style-files
+    (if (eq TeX-arg-input-file-search t)  ;; Treat `ask' value as `nil'.
+	;; ...then, search for BibLaTeX styles.
+	(progn
+	  (message "Searching for BibLaTeX styles...")
+	  (setq BibLaTeX-global-style-files
+		(mapcar 'identity (TeX-search-files-by-type 'bbxinputs 'global t t))))
+      ;; ...else, use default BibLaTeX styles.
+      (setq BibLaTeX-global-style-files
+	    '("numeric" "numeric-comp" "numeric-verb" "alphabetic"
+	      "alphabetic-verb" "authoryear" "authoryear-comp" "authoryear-ibid"
+	      "authoryear-icomp" "authortitle" "authortitle-comp"
+	      "authortitle-ibid" "authortitle-icomp" "authortitle-terse"
+	      "authortitle-tcomp" "authortitle-ticomp" "verbose" "verbose-ibid"
+	      "verbose-note" "verbose-inote" "verbose-trad1" "verbose-trad2"
+	      "verbose-trad3" "reading" "draft" "debug"))))
+  ;; Can't use directly `TeX-arg-key-val' because that would insert an empty
+  ;; `[]' after `\usepackage' when `options' is empty.
+  (let ((options (multi-prompt-key-value
+		  (TeX-argument-prompt optional "Options (k=v)" nil)
+		  LaTeX-biblatex-package-options-list)))
     options))
 
 ;;; biblatex.el ends here

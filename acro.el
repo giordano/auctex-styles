@@ -29,7 +29,7 @@
 
 ;;; Code:
 
-(defvar LaTeX-acro-package-options
+(defvar LaTeX-acro-package-options-list
   '(;; General Options
     ("version" ("0" "1"))
     ("single" ("true" "false"))
@@ -239,7 +239,7 @@ with strings to be used as values for the key."
     ;; Printing the List
     '("printacronyms" [LaTeX-arg-acro-key-val nil LaTeX-acro-printacronyms-keys])
     ;; Customization
-    '("acsetup" LaTeX-acro-package-options))
+    '("acsetup" (TeX-arg-key-val LaTeX-acro-package-options-list)))
    (TeX-run-style-hooks
     "l3sort"
     "xspace"
@@ -285,10 +285,13 @@ with strings to be used as values for the key."
 				("acuse" "{"))
 			      'function))))
 
-(defun LaTeX-acro-package-options (optional)
-  "Prompt for package options for the acro package.  If
-OPTIONAL is non-nil, insert it as an optional argument."
-  (let ((options (TeX-arg-key-val optional LaTeX-acro-package-options)))
-    options))
+(defun LaTeX-acro-package-options nil
+  "Prompt for package options for the acro package."
+  ;; Can't use directly `TeX-arg-key-val' because that would insert an empty
+  ;; `[]' after `\usepackage' when `options' is empty.
+  (let ((options (multi-prompt-key-value
+		  (TeX-argument-prompt optional "Options (k=v)" nil)
+		  LaTeX-acro-package-options-list))
+	options)))
 
 ;;; acro.el ends here

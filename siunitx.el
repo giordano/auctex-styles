@@ -266,21 +266,21 @@ string."
    (TeX-auto-add-regexp `(,LaTeX-siunitx-regexp 1 LaTeX-auto-siunitx-unit))
    (TeX-add-symbols
     ;; Numbers
-    '("ang" [LaTeX-siunitx-package-options] "Angle")
-    '("num" [LaTeX-siunitx-package-options] "Number")
-    '("numlist" [LaTeX-siunitx-package-options] "Numbers")
-    '("numrange" [LaTeX-siunitx-package-options] "Number 1" "Number 2")
+    '("ang" [TeX-arg-key-val LaTeX-siunitx-package-options] "Angle")
+    '("num" [TeX-arg-key-val LaTeX-siunitx-package-options] "Number")
+    '("numlist" [TeX-arg-key-val LaTeX-siunitx-package-options] "Numbers")
+    '("numrange" [TeX-arg-key-val LaTeX-siunitx-package-options] "Number 1" "Number 2")
     ;; Units
-    '("si" [LaTeX-siunitx-package-options] LaTeX-arg-siunitx-unit)
-    '("SI" [LaTeX-siunitx-package-options] "Value" [ "Pre-unit"] LaTeX-arg-siunitx-unit)
-    '("SIlist" [LaTeX-siunitx-package-options] "Values" LaTeX-arg-siunitx-unit)
-    '("SIrange" [LaTeX-siunitx-package-options] "Value 1" "Value 2" LaTeX-arg-siunitx-unit)
+    '("si" [TeX-arg-key-val LaTeX-siunitx-package-options] LaTeX-arg-siunitx-unit)
+    '("SI" [TeX-arg-key-val LaTeX-siunitx-package-options] "Value" [ "Pre-unit"] LaTeX-arg-siunitx-unit)
+    '("SIlist" [TeX-arg-key-val LaTeX-siunitx-package-options] "Values" LaTeX-arg-siunitx-unit)
+    '("SIrange" [TeX-arg-key-val LaTeX-siunitx-package-options] "Value 1" "Value 2" LaTeX-arg-siunitx-unit)
     ;; Settings
-    '("sisetup" LaTeX-siunitx-package-options)
+    '("sisetup" (TeX-arg-key-val LaTeX-siunitx-package-options))
     ;; Tabular material
-    '("tablenum" [LaTeX-siunitx-package-options] "Number")
+    '("tablenum" [TeX-arg-key-val LaTeX-siunitx-package-options] "Number")
     ;; Creating new macros (`DeclareSIUnitWithOptions' macro is deprecated)
-    '("DeclareSIUnit" [LaTeX-siunitx-package-options] (LaTeX-arg-define-siunitx-unit) "Symbol")
+    '("DeclareSIUnit" [TeX-arg-key-val LaTeX-siunitx-package-options] (LaTeX-arg-define-siunitx-unit) "Symbol")
     '("DeclareSIPrefix" (LaTeX-arg-define-siunitx-unit "Prefix") "Symbol" "Powers of 10")
     '("DeclareBinaryPrefix" (LaTeX-arg-define-siunitx-unit "Prefix") "Symbol" "Powers of 2")
     '("DeclareSIPostPower" (LaTeX-arg-define-siunitx-unit "Name") "Power")
@@ -595,10 +595,13 @@ string."
 				("highlight" "{"))
    			      'function))))
 
-(defun LaTeX-siunitx-package-options (optional)
-  "Prompt for package options for the siunitx package.  If
-OPTIONAL is non-nil, insert it as an optional argument."
-  (let ((options (TeX-arg-key-val optional LaTeX-siunitx-package-options)))
-    options))
+(defun LaTeX-siunitx-package-options nil
+  "Prompt for package options for the siunitx package."
+  ;; Can't use directly `TeX-arg-key-val' because that would insert an empty
+  ;; `[]' after `\usepackage' when `options' is empty.
+  (let ((options (multi-prompt-key-value
+		  (TeX-argument-prompt optional "Options (k=v)" nil)
+		  LaTeX-siunitx-package-options)))
+      options))
 
 ;; siunitx.el ends here
