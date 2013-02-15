@@ -601,10 +601,10 @@
     ("openbib"))
   "Package options for the biblatex package.")
 
-(defun LaTeX-biblatex-package-options (ignore)
-  "Prompt for package options for the biblatex package.
-IGNORE is ignored."
-  (let ((options (TeX-arg-key-val nil LaTeX-biblatex-package-options)))
+(defun LaTeX-biblatex-package-options (optional)
+  "Prompt for package options for the biblatex package.  If
+OPTIONAL is non-nil, insert it as an optional argument."
+  (let ((options (TeX-arg-key-val optional LaTeX-biblatex-package-options)))
     options))
 
 ;;; biblatex.el ends here

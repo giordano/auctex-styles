@@ -149,7 +149,7 @@ with strings to be used as values for the key."
 	(space-must-match (lookup-key minibuffer-local-must-match-map " ")))
     (define-key minibuffer-local-completion-map " " nil)
     (define-key minibuffer-local-must-match-map " " nil)
-    (let ((var (multi-prompt-key-value (TeX-argument-prompt optional prompt nil)
+    (let ((var (multi-prompt-key-value (TeX-argument-prompt optional "Options (k=v)" prompt)
 				       (eval key-val-alist))))
       (TeX-argument-insert var optional))
     ;; Restore <SPC> key bindings in minibuffer.
@@ -237,8 +237,7 @@ with strings to be used as values for the key."
     '("acpdfstring" LaTeX-arg-acro-acronym)
     '("acpdfstringplural" LaTeX-arg-acro-acronym)
     ;; Printing the List
-    '("printacronyms" [LaTeX-arg-acro-key-val "Options (k=v)"
-					      LaTeX-acro-printacronyms-keys])
+    '("printacronyms" [LaTeX-arg-acro-key-val nil LaTeX-acro-printacronyms-keys])
     ;; Customization
     '("acsetup" LaTeX-acro-package-options))
    (TeX-run-style-hooks
@@ -286,10 +285,10 @@ with strings to be used as values for the key."
 				("acuse" "{"))
 			      'function))))
 
-(defun LaTeX-acro-package-options (ignore)
-  "Prompt for package options for the acro package.
-IGNORE is ignored."
-  (let ((options (TeX-arg-key-val nil LaTeX-acro-package-options)))
+(defun LaTeX-acro-package-options (optional)
+  "Prompt for package options for the acro package.  If
+OPTIONAL is non-nil, insert it as an optional argument."
+  (let ((options (TeX-arg-key-val optional LaTeX-acro-package-options)))
     options))
 
 ;;; acro.el ends here

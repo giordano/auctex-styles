@@ -57,7 +57,7 @@
 (add-hook 'TeX-auto-prepare-hook 'LaTeX-siunitx-prepare)
 (add-hook 'TeX-auto-cleanup-hook 'LaTeX-siunitx-cleanup)
 
-(defun TeX-arg-siunitx-unit (optional &optional prompt initial-input definition)
+(defun LaTeX-arg-siunitx-unit (optional &optional prompt initial-input definition)
   "Prompt for siunitx units, prefixes, powers, and qualifiers.
 If OPTIONAL is non-nil, insert the resulting value as an optional
 argument, otherwise as a mandatory one.  Use PROMPT as the prompt
@@ -83,12 +83,12 @@ non-nil, add the chosen unit to the list of defined units."
     (define-key minibuffer-local-completion-map " " space-completion)
     (define-key minibuffer-local-must-match-map " " space-must-match)))
 
-(defun TeX-arg-define-siunitx-unit (optional &optional prompt)
+(defun LaTeX-arg-define-siunitx-unit (optional &optional prompt)
   "Prompt for a LaTeX siunitx unit, prefix, power, and qualifier.
 If OPTIONAL is non-nil, insert the resulting value as an optional
 argument, otherwise as a mandatory one.  Use PROMPT as the prompt
 string."
-  (TeX-arg-siunitx-unit optional prompt "\\" t))
+  (LaTeX-arg-siunitx-unit optional prompt "\\" t))
 
 (defvar LaTeX-siunitx-package-options
   '(;; Detecting fonts
@@ -266,26 +266,26 @@ string."
    (TeX-auto-add-regexp `(,LaTeX-siunitx-regexp 1 LaTeX-auto-siunitx-unit))
    (TeX-add-symbols
     ;; Numbers
-    '("ang" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Angle")
-    '("num" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Number")
-    '("numlist" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Numbers")
-    '("numrange" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Number 1" "Number 2")
+    '("ang" [LaTeX-siunitx-package-options] "Angle")
+    '("num" [LaTeX-siunitx-package-options] "Number")
+    '("numlist" [LaTeX-siunitx-package-options] "Numbers")
+    '("numrange" [LaTeX-siunitx-package-options] "Number 1" "Number 2")
     ;; Units
-    '("si" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] TeX-arg-siunitx-unit)
-    '("SI" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Value" [ "Pre-unit"] TeX-arg-siunitx-unit)
-    '("SIlist" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Values" TeX-arg-siunitx-unit)
-    '("SIrange" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Value 1" "Value 2" TeX-arg-siunitx-unit)
+    '("si" [LaTeX-siunitx-package-options] LaTeX-arg-siunitx-unit)
+    '("SI" [LaTeX-siunitx-package-options] "Value" [ "Pre-unit"] LaTeX-arg-siunitx-unit)
+    '("SIlist" [LaTeX-siunitx-package-options] "Values" LaTeX-arg-siunitx-unit)
+    '("SIrange" [LaTeX-siunitx-package-options] "Value 1" "Value 2" LaTeX-arg-siunitx-unit)
     ;; Settings
     '("sisetup" LaTeX-siunitx-package-options)
     ;; Tabular material
-    '("tablenum" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] "Number")
+    '("tablenum" [LaTeX-siunitx-package-options] "Number")
     ;; Creating new macros (`DeclareSIUnitWithOptions' macro is deprecated)
-    '("DeclareSIUnit" [ (TeX-arg-key-val LaTeX-siunitx-package-options) ] (TeX-arg-define-siunitx-unit) "Symbol")
-    '("DeclareSIPrefix" (TeX-arg-define-siunitx-unit "Prefix") "Symbol" "Powers of 10")
-    '("DeclareBinaryPrefix" (TeX-arg-define-siunitx-unit "Prefix") "Symbol" "Powers of 2")
-    '("DeclareSIPostPower" (TeX-arg-define-siunitx-unit "Name") "Power")
-    '("DeclareSIPrePower" (TeX-arg-define-siunitx-unit "Name") "Power")
-    '("DeclareSIQualifier" (TeX-arg-define-siunitx-unit "Qualifier") "Symbol")
+    '("DeclareSIUnit" [LaTeX-siunitx-package-options] (LaTeX-arg-define-siunitx-unit) "Symbol")
+    '("DeclareSIPrefix" (LaTeX-arg-define-siunitx-unit "Prefix") "Symbol" "Powers of 10")
+    '("DeclareBinaryPrefix" (LaTeX-arg-define-siunitx-unit "Prefix") "Symbol" "Powers of 2")
+    '("DeclareSIPostPower" (LaTeX-arg-define-siunitx-unit "Name") "Power")
+    '("DeclareSIPrePower" (LaTeX-arg-define-siunitx-unit "Name") "Power")
+    '("DeclareSIQualifier" (LaTeX-arg-define-siunitx-unit "Qualifier") "Symbol")
     ;; Highlighting
     '("highlight" "Color")
     ;; Transferring settings to pgf
@@ -595,10 +595,10 @@ string."
 				("highlight" "{"))
    			      'function))))
 
-(defun LaTeX-siunitx-package-options (ignore)
-  "Prompt for package options for the siunitx package.
-IGNORE is ignored."
-  (let ((options (TeX-arg-key-val nil LaTeX-siunitx-package-options)))
+(defun LaTeX-siunitx-package-options (optional)
+  "Prompt for package options for the siunitx package.  If
+OPTIONAL is non-nil, insert it as an optional argument."
+  (let ((options (TeX-arg-key-val optional LaTeX-siunitx-package-options)))
     options))
 
 ;; siunitx.el ends here

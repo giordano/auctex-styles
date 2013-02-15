@@ -226,10 +226,10 @@
    (when (fboundp 'reftex-ref-style-activate)
      (reftex-ref-style-activate "Hyperref"))))
 
-(defun LaTeX-hyperref-package-options (ignore)
-  "Prompt for package options for the hyperref package.
-IGNORE is ignored."
-  (let ((options (TeX-arg-key-val nil LaTeX-hyperref-package-options)))
+(defun LaTeX-hyperref-package-options (optional)
+  "Prompt for package options for the hyperref package.  If
+OPTIONAL is non-nil, insert it as an optional argument."
+  (let ((options (TeX-arg-key-val optional LaTeX-hyperref-package-options)))
     options))
 
 ;;; hyperref.el ends here
