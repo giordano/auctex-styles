@@ -138,12 +138,12 @@ in its optional argument.")
 
 (defun LaTeX-arg-acro-key-val (optional prompt key-val-alist)
   "Prompt for keys and values in KEY-VAL-ALIST.
-<SPC> key bindings in minibuffer are removed.  Insert the given
-value as a TeX macro argument.  If OPTIONAL is non-nil, insert it
-as an optional argument.  Use PROMPT as the prompt string.
-KEY-VAL-ALIST is an alist.  The car of each element should be a
-string representing a key and the optional cdr should be a list
-with strings to be used as values for the key."
+<SPC> key bindings in minibuffer are removed temporarily.  Insert
+the given value as a TeX macro argument.  If OPTIONAL is non-nil,
+insert it as an optional argument.  Use PROMPT as the prompt
+string.  KEY-VAL-ALIST is an alist.  The car of each element
+should be a string representing a key and the optional cdr should
+be a list with strings to be used as values for the key."
   ;; Remove <SPC> key bindings in minibuffer.
   (let ((space-completion (lookup-key minibuffer-local-completion-map " "))
 	(space-must-match (lookup-key minibuffer-local-must-match-map " ")))
@@ -291,7 +291,7 @@ with strings to be used as values for the key."
   ;; `[]' after `\usepackage' when `options' is empty.
   (let ((options (multi-prompt-key-value
 		  (TeX-argument-prompt optional "Options (k=v)" nil)
-		  LaTeX-acro-package-options-list))
-	options)))
+		  LaTeX-acro-package-options-list)))
+    options))
 
 ;;; acro.el ends here
