@@ -33,146 +33,146 @@
 
 (defconst LaTeX-kpfonts-default
   '(;; Other Greek Lowercase
-    ("o a" "otheralpha" "Other Greek Lowercase" 945)
-    ("o b" "otherbeta" "Other Greek Lowercase" 946)
-    ("o g" "othergamma" "Other Greek Lowercase" 947)
-    ("o d" "otherdelta" "Other Greek Lowercase" 948)
-    ("o e" "otherepsilon" "Other Greek Lowercase" 1013)
-    ("o z" "otherzeta" "Other Greek Lowercase" 950)
-    ("o h" "othereta" "Other Greek Lowercase" 951)
-    ("o j" "othertheta" "Other Greek Lowercase" 952)
-    (nil "otheriota" "Other Greek Lowercase" 953)
-    ("o k" "otherkappa" "Other Greek Lowercase" 954)
-    ("o l" "otherlambda" "Other Greek Lowercase" 955)
-    ("o m" "othermu" "Other Greek Lowercase" 956)
-    ("o n" "othernu" "Other Greek Lowercase" 957)
-    ("o x" "otherxi" "Other Greek Lowercase" 958)
-    ("o p" "otherpi" "Other Greek Lowercase" 960)
-    ("o r" "otherrho" "Other Greek Lowercase" 961)
-    ("o s" "othersigma" "Other Greek Lowercase" 963)
-    ("o t" "othertau" "Other Greek Lowercase" 964)
-    ("o u" "otherupsilon" "Other Greek Lowercase" 965)
-    ("o f" "otherphi" "Other Greek Lowercase" 981)
-    ("o q" "otherchi" "Other Greek Lowercase" 967)
-    ("o y" "otherpsi" "Other Greek Lowercase" 968)
-    ("o w" "otheromega" "Other Greek Lowercase" 969)
-    ("o v e" "othervarepsilon" "Other Greek Lowercase" 949)
-    ("o v j" "othervartheta" "Other Greek Lowercase" 977)
-    ("o v p" "othervarpi" "Other Greek Lowercase" 982)
-    ("o v r" "othervarrho" "Other Greek Lowercase" 1009)
-    ("o v s" "othervarsigma" "Other Greek Lowercase" 962)
-    ("o v f" "othervarphi" "Other Greek Lowercase" 966)
+    ("o a" "otheralpha" "Other Greek Lowercase" 945) ;; #X03B1
+    ("o b" "otherbeta" "Other Greek Lowercase" 946) ;; #X03B2
+    ("o g" "othergamma" "Other Greek Lowercase" 947) ;; #X03B3
+    ("o d" "otherdelta" "Other Greek Lowercase" 948) ;; #X03B4
+    ("o e" "otherepsilon" "Other Greek Lowercase" 1013) ;; #X03F5
+    ("o z" "otherzeta" "Other Greek Lowercase" 950) ;; #X03B6
+    ("o h" "othereta" "Other Greek Lowercase" 951) ;; #X03B7
+    ("o j" "othertheta" "Other Greek Lowercase" 952) ;; #X03B8
+    (nil "otheriota" "Other Greek Lowercase" 953) ;; #X03B9
+    ("o k" "otherkappa" "Other Greek Lowercase" 954) ;; #X03BA
+    ("o l" "otherlambda" "Other Greek Lowercase" 955) ;; #X03BB
+    ("o m" "othermu" "Other Greek Lowercase" 956) ;; #X03BC
+    ("o n" "othernu" "Other Greek Lowercase" 957) ;; #X03BD
+    ("o x" "otherxi" "Other Greek Lowercase" 958) ;; #X03BE
+    ("o p" "otherpi" "Other Greek Lowercase" 960) ;; #X03C0
+    ("o r" "otherrho" "Other Greek Lowercase" 961) ;; #X03C1
+    ("o s" "othersigma" "Other Greek Lowercase" 963) ;; #X03C3
+    ("o t" "othertau" "Other Greek Lowercase" 964) ;; #X03C4
+    ("o u" "otherupsilon" "Other Greek Lowercase" 965) ;; #X03C5
+    ("o f" "otherphi" "Other Greek Lowercase" 981) ;; #X03D5
+    ("o q" "otherchi" "Other Greek Lowercase" 967) ;; #X03C7
+    ("o y" "otherpsi" "Other Greek Lowercase" 968) ;; #X03C8
+    ("o w" "otheromega" "Other Greek Lowercase" 969) ;; #X03C9
+    ("o v e" "othervarepsilon" "Other Greek Lowercase" 949) ;; #X03B5
+    ("o v j" "othervartheta" "Other Greek Lowercase" 977) ;; #X03D1
+    ("o v p" "othervarpi" "Other Greek Lowercase" 982) ;; #X03D6
+    ("o v r" "othervarrho" "Other Greek Lowercase" 1009) ;; #X03F1
+    ("o v s" "othervarsigma" "Other Greek Lowercase" 962) ;; #X03C2
+    ("o v f" "othervarphi" "Other Greek Lowercase" 966) ;; #X03C6
     ;; Slanted Greek Lowercase
-    (nil "alphasl" "Slanted Greek Lowercase" 120572)
-    (nil "betasl" "Slanted Greek Lowercase" 120573)
-    (nil "gammasl" "Slanted Greek Lowercase" 120574)
-    (nil "deltasl" "Slanted Greek Lowercase" 120575)
-    (nil "epsilonsl" "Slanted Greek Lowercase" 120598)
-    (nil "zetasl" "Slanted Greek Lowercase" 120577)
-    (nil "etasl" "Slanted Greek Lowercase" 120578)
-    (nil "thetasl" "Slanted Greek Lowercase" 120579)
-    (nil "iotasl" "Slanted Greek Lowercase" 120580)
-    (nil "kappasl" "Slanted Greek Lowercase" 120581)
-    (nil "lambdasl" "Slanted Greek Lowercase" 120582)
-    (nil "musl" "Slanted Greek Lowercase" 120583)
-    (nil "nusl" "Slanted Greek Lowercase" 120584)
-    (nil "xisl" "Slanted Greek Lowercase" 120585)
-    (nil "pisl" "Slanted Greek Lowercase" 120587)
-    (nil "rhosl" "Slanted Greek Lowercase" 120588)
-    (nil "sigmasl" "Slanted Greek Lowercase" 120590)
-    (nil "tausl" "Slanted Greek Lowercase" 120591)
-    (nil "upsilonsl" "Slanted Greek Lowercase" 120592)
-    (nil "phisl" "Slanted Greek Lowercase" 120601)
-    (nil "chisl" "Slanted Greek Lowercase" 120594)
-    (nil "psisl" "Slanted Greek Lowercase" 120595)
-    (nil "omegasl" "Slanted Greek Lowercase" 120596)
-    (nil "varepsilonsl" "Slanted Greek Lowercase" 120576)
-    (nil "varthetasl" "Slanted Greek Lowercase" 120599)
-    (nil "varpisl" "Slanted Greek Lowercase" 120603)
-    (nil "varrhosl" "Slanted Greek Lowercase" 120602)
-    (nil "varsigmasl" "Slanted Greek Lowercase" 120589)
-    (nil "varphisl" "Slanted Greek Lowercase" 120593)
+    (nil "alphasl" "Slanted Greek Lowercase" 120572) ;; #X1D6FC
+    (nil "betasl" "Slanted Greek Lowercase" 120573) ;; #X1D6FD
+    (nil "gammasl" "Slanted Greek Lowercase" 120574) ;; #X1D6FE
+    (nil "deltasl" "Slanted Greek Lowercase" 120575) ;; #X1D6FF
+    (nil "epsilonsl" "Slanted Greek Lowercase" 120598) ;; #X1D716
+    (nil "zetasl" "Slanted Greek Lowercase" 120577) ;; #X1D701
+    (nil "etasl" "Slanted Greek Lowercase" 120578) ;; #X1D702
+    (nil "thetasl" "Slanted Greek Lowercase" 120579) ;; #X1D703
+    (nil "iotasl" "Slanted Greek Lowercase" 120580) ;; #X1D704
+    (nil "kappasl" "Slanted Greek Lowercase" 120581) ;; #X1D705
+    (nil "lambdasl" "Slanted Greek Lowercase" 120582) ;; #X1D706
+    (nil "musl" "Slanted Greek Lowercase" 120583) ;; #X1D707
+    (nil "nusl" "Slanted Greek Lowercase" 120584) ;; #X1D708
+    (nil "xisl" "Slanted Greek Lowercase" 120585) ;; #X1D709
+    (nil "pisl" "Slanted Greek Lowercase" 120587) ;; #X1D70B
+    (nil "rhosl" "Slanted Greek Lowercase" 120588) ;; #X1D70C
+    (nil "sigmasl" "Slanted Greek Lowercase" 120590) ;; #X1D70E
+    (nil "tausl" "Slanted Greek Lowercase" 120591) ;; #X1D70F
+    (nil "upsilonsl" "Slanted Greek Lowercase" 120592) ;; #X1D710
+    (nil "phisl" "Slanted Greek Lowercase" 120601) ;; #X1D719
+    (nil "chisl" "Slanted Greek Lowercase" 120594) ;; #X1D712
+    (nil "psisl" "Slanted Greek Lowercase" 120595) ;; #X1D713
+    (nil "omegasl" "Slanted Greek Lowercase" 120596) ;; #X1D714
+    (nil "varepsilonsl" "Slanted Greek Lowercase" 120576) ;; #X1D700
+    (nil "varthetasl" "Slanted Greek Lowercase" 120599) ;; #X1D717
+    (nil "varpisl" "Slanted Greek Lowercase" 120603) ;; #X1D71B
+    (nil "varrhosl" "Slanted Greek Lowercase" 120602) ;; #X1D71A
+    (nil "varsigmasl" "Slanted Greek Lowercase" 120589) ;; #X1D70D
+    (nil "varphisl" "Slanted Greek Lowercase" 120593) ;; #X1D711
     ;; Upright Greek Lowercase
-    (nil "alphaup" "Upright Greek Lowercase" 945)
-    (nil "betaup" "Upright Greek Lowercase" 946)
-    (nil "gammaup" "Upright Greek Lowercase" 947)
-    (nil "deltaup" "Upright Greek Lowercase" 948)
-    (nil "epsilonup" "Upright Greek Lowercase" 1013)
-    (nil "zetaup" "Upright Greek Lowercase" 950)
-    (nil "etaup" "Upright Greek Lowercase" 951)
-    (nil "thetaup" "Upright Greek Lowercase" 952)
-    (nil "iotaup" "Upright Greek Lowercase" 953)
-    (nil "kappaup" "Upright Greek Lowercase" 954)
-    (nil "lambdaup" "Upright Greek Lowercase" 955)
-    (nil "muup" "Upright Greek Lowercase" 956)
-    (nil "nuup" "Upright Greek Lowercase" 957)
-    (nil "xiup" "Upright Greek Lowercase" 958)
-    (nil "piup" "Upright Greek Lowercase" 960)
-    (nil "rhoup" "Upright Greek Lowercase" 961)
-    (nil "sigmaup" "Upright Greek Lowercase" 963)
-    (nil "tauup" "Upright Greek Lowercase" 964)
-    (nil "upsilonup" "Upright Greek Lowercase" 965)
-    (nil "phiup" "Upright Greek Lowercase" 981)
-    (nil "chiup" "Upright Greek Lowercase" 967)
-    (nil "psiup" "Upright Greek Lowercase" 968)
-    (nil "omegaup" "Upright Greek Lowercase" 969)
-    (nil "varepsilonup" "Upright Greek Lowercase" 949)
-    (nil "varthetaup" "Upright Greek Lowercase" 977)
-    (nil "varpiup" "Upright Greek Lowercase" 982)
-    (nil "varrhoup" "Upright Greek Lowercase" 1009)
-    (nil "varsigmaup" "Upright Greek Lowercase" 962)
-    (nil "varphiup" "Upright Greek Lowercase" 966)
+    (nil "alphaup" "Upright Greek Lowercase" 945) ;; #X03B1
+    (nil "betaup" "Upright Greek Lowercase" 946) ;; #X03B2
+    (nil "gammaup" "Upright Greek Lowercase" 947) ;; #X03B3
+    (nil "deltaup" "Upright Greek Lowercase" 948) ;; #X03B4
+    (nil "epsilonup" "Upright Greek Lowercase" 1013) ;; #X03F5
+    (nil "zetaup" "Upright Greek Lowercase" 950) ;; #X03B6
+    (nil "etaup" "Upright Greek Lowercase" 951) ;; #X03B7
+    (nil "thetaup" "Upright Greek Lowercase" 952) ;; #X03B8
+    (nil "iotaup" "Upright Greek Lowercase" 953) ;; #X03B9
+    (nil "kappaup" "Upright Greek Lowercase" 954) ;; #X03BA
+    (nil "lambdaup" "Upright Greek Lowercase" 955) ;; #X03BB
+    (nil "muup" "Upright Greek Lowercase" 956) ;; #X03BC
+    (nil "nuup" "Upright Greek Lowercase" 957) ;; #X03BD
+    (nil "xiup" "Upright Greek Lowercase" 958) ;; #X03BE
+    (nil "piup" "Upright Greek Lowercase" 960) ;; #X03C0
+    (nil "rhoup" "Upright Greek Lowercase" 961) ;; #X03C1
+    (nil "sigmaup" "Upright Greek Lowercase" 963) ;; #X03C3
+    (nil "tauup" "Upright Greek Lowercase" 964) ;; #X03C4
+    (nil "upsilonup" "Upright Greek Lowercase" 965) ;; #X03C5
+    (nil "phiup" "Upright Greek Lowercase" 981) ;; #X03D5
+    (nil "chiup" "Upright Greek Lowercase" 967) ;; #X03C7
+    (nil "psiup" "Upright Greek Lowercase" 968) ;; #X03C8
+    (nil "omegaup" "Upright Greek Lowercase" 969) ;; #X03C9
+    (nil "varepsilonup" "Upright Greek Lowercase" 949) ;; #X03B5
+    (nil "varthetaup" "Upright Greek Lowercase" 977) ;; #X03D1
+    (nil "varpiup" "Upright Greek Lowercase" 982) ;; #X03D6
+    (nil "varrhoup" "Upright Greek Lowercase" 1009) ;; #X03F1
+    (nil "varsigmaup" "Upright Greek Lowercase" 962) ;; #X03C2
+    (nil "varphiup" "Upright Greek Lowercase" 966) ;; #X03C6
     ;; Other Greek Uppercase
-    ("o G" "otherGamma" "Other Greek Uppercase" 915)
-    ("o D" "otherDelta" "Other Greek Uppercase" 916)
-    ("o J" "otherTheta" "Other Greek Uppercase" 920)
-    ("o L" "otherLambda" "Other Greek Uppercase" 923)
-    ("o X" "otherXi" "Other Greek Uppercase" 926)
-    ("o P" "otherPi" "Other Greek Uppercase" 928)
-    ("o S" "otherSigma" "Other Greek Uppercase" 931)
-    ("o U" "otherUpsilon" "Other Greek Uppercase" 978)
-    ("o F" "otherPhi" "Other Greek Uppercase" 934)
-    ("o Y" "otherPsi" "Other Greek Uppercase" 936)
-    ("o W" "otherOmega" "Other Greek Uppercase" 937)
+    ("o G" "otherGamma" "Other Greek Uppercase" 120548) ;; #X1D6E4
+    ("o D" "otherDelta" "Other Greek Uppercase" 120549) ;; #X1D6E5
+    ("o J" "otherTheta" "Other Greek Uppercase" 120553) ;; #X1D6E9
+    ("o L" "otherLambda" "Other Greek Uppercase" 120556) ;; #X1D6EC
+    ("o X" "otherXi" "Other Greek Uppercase" 120559) ;; #X1D6EF
+    ("o P" "otherPi" "Other Greek Uppercase" 120561) ;; #X1D6F1
+    ("o S" "otherSigma" "Other Greek Uppercase" 120564) ;; #X1D6F4
+    ("o U" "otherUpsilon" "Other Greek Uppercase" 120566) ;; #X1D6F6
+    ("o F" "otherPhi" "Other Greek Uppercase" 120567) ;; #X1D6F7
+    ("o Y" "otherPsi" "Other Greek Uppercase" 120569) ;; #X1D6F9
+    ("o W" "otherOmega" "Other Greek Uppercase" 120570) ;; #X1D6FA
     ;; Slanted Greek Uppercase
-    (nil "Gammasl" "Slanted Greek Uppercase" 120548)
-    (nil "Deltasl" "Slanted Greek Uppercase" 120549)
-    (nil "Thetasl" "Slanted Greek Uppercase" 120553)
-    (nil "Lambdasl" "Slanted Greek Uppercase" 120556)
-    (nil "Xisl" "Slanted Greek Uppercase" 120559)
-    (nil "Pisl" "Slanted Greek Uppercase" 120561)
-    (nil "Sigmasl" "Slanted Greek Uppercase" 120564)
-    (nil "Upsilonsl" "Slanted Greek Uppercase" 120566)
-    (nil "Phisl" "Slanted Greek Uppercase" 120567)
-    (nil "Psisl" "Slanted Greek Uppercase" 120569)
-    (nil "Omegasl" "Slanted Greek Uppercase" 120570)
+    (nil "Gammasl" "Slanted Greek Uppercase" 120548) ;; #X1D6E4
+    (nil "Deltasl" "Slanted Greek Uppercase" 120549) ;; #X1D6E5
+    (nil "Thetasl" "Slanted Greek Uppercase" 120553) ;; #X1D6E9
+    (nil "Lambdasl" "Slanted Greek Uppercase" 120556) ;; #X1D6EC
+    (nil "Xisl" "Slanted Greek Uppercase" 120559) ;; #X1D6EF
+    (nil "Pisl" "Slanted Greek Uppercase" 120561) ;; #X1D6F1
+    (nil "Sigmasl" "Slanted Greek Uppercase" 120564) ;; #X1D6F4
+    (nil "Upsilonsl" "Slanted Greek Uppercase" 120566) ;; #X1D6F6
+    (nil "Phisl" "Slanted Greek Uppercase" 120567) ;; #X1D6F7
+    (nil "Psisl" "Slanted Greek Uppercase" 120569) ;; #X1D6F9
+    (nil "Omegasl" "Slanted Greek Uppercase" 120570) ;; #X1D6FA
     ;; Upright Greek Uppercase
-    (nil "Gammaup" "Upright Greek Uppercase" 915)
-    (nil "Deltaup" "Upright Greek Uppercase" 916)
-    (nil "Thetaup" "Upright Greek Uppercase" 920)
-    (nil "Lambdaup" "Upright Greek Uppercase" 923)
-    (nil "Xiup" "Upright Greek Uppercase" 926)
-    (nil "Piup" "Upright Greek Uppercase" 928)
-    (nil "Sigmaup" "Upright Greek Uppercase" 931)
-    (nil "Upsilonup" "Upright Greek Uppercase" 978)
-    (nil "Phiup" "Upright Greek Uppercase" 934)
-    (nil "Psiup" "Upright Greek Uppercase" 936)
-    (nil "Omegaup" "Upright Greek Uppercase" 937)
+    (nil "Gammaup" "Upright Greek Uppercase" 915) ;; #X0393
+    (nil "Deltaup" "Upright Greek Uppercase" 916) ;; #X0394
+    (nil "Thetaup" "Upright Greek Uppercase" 920) ;; #X0398
+    (nil "Lambdaup" "Upright Greek Uppercase" 923) ;; #X039B
+    (nil "Xiup" "Upright Greek Uppercase" 926) ;; #X039E
+    (nil "Piup" "Upright Greek Uppercase" 928) ;; #X03A0
+    (nil "Sigmaup" "Upright Greek Uppercase" 931) ;; #X03A3
+    (nil "Upsilonup" "Upright Greek Uppercase" 978) ;; #X03D2
+    (nil "Phiup" "Upright Greek Uppercase" 934) ;; #X03A6
+    (nil "Psiup" "Upright Greek Uppercase" 936) ;; #X03A8
+    (nil "Omegaup" "Upright Greek Uppercase" 937) ;; #X03A9
     ;; Integrals
     (nil "varint" "Integrals" nil)
     (nil "variint" "Integrals" nil)
     (nil "variiint" "Integrals" nil)
     (nil "variiiint" "Integrals" nil)
     (nil "varidotsint" "Integrals" nil)
-    (nil "oiint" "Integrals" 8751)
-    (nil "ointctrclockwise" "Integrals" 8755)
+    (nil "oiint" "Integrals" 8751) ;; #X222F
+    (nil "ointctrclockwise" "Integrals" 8755) ;; #X2233
     (nil "ointclockwise" "Integrals" nil)
-    (nil "sqint" "Integrals" 10774)
+    (nil "sqint" "Integrals" 10774) ;; #X2A16
     (nil "idotsint" "Integrals" nil)
-    (nil "oiiint" "Integrals" 8752)
+    (nil "oiiint" "Integrals" 8752) ;; #X2230
     (nil "varointctrclockwise" "Integrals" nil)
-    (nil "varointclockwise" "Integrals" 8754)
-    (nil "fint" "Integrals" 10767)
+    (nil "varointclockwise" "Integrals" 8754) ;; #X2232
+    (nil "fint" "Integrals" 10767) ;; #X2A0F
     (nil "oiintctrclockwise" "Integrals" nil)
     (nil "varoiintclockwise" "Integrals" nil)
     (nil "oiiintctrclockwise" "Integrals" nil)
@@ -184,12 +184,12 @@
     (nil "sqiint" "Integrals" nil)
     (nil "sqiiint" "Integrals" nil)
     ;; Mapping
-    (nil "mappedfrom" "Mapping" 8612)
-    (nil "longmappedfrom" "Mapping" 10235)
-    (nil "Mapsto" "Mapping" 10503)
-    (nil "Longmapsto" "Mapping" 10238)
-    (nil "Mappedfrom" "Mapping" 10502)
-    (nil "Longmappedfrom" "Mapping" 10237)
+    (nil "mappedfrom" "Mapping" 8612) ;; #X21A4
+    (nil "longmappedfrom" "Mapping" 10235) ;; #X27FB
+    (nil "Mapsto" "Mapping" 10503) ;; #X2907
+    (nil "Longmapsto" "Mapping" 10238) ;; #X27FE
+    (nil "Mappedfrom" "Mapping" 10502) ;; #X2906
+    (nil "Longmappedfrom" "Mapping" 10237) ;; #X27FD
     (nil "mmapsto" "Mapping" nil)
     (nil "longmmapsto" "Mapping" nil)
     (nil "mmappedfrom" "Mapping" nil)
@@ -199,16 +199,16 @@
     (nil "Mmappedfrom" "Mapping" nil)
     (nil "Longmmappedfrom" "Mapping" nil)
     ;; Arrows
-    (nil "dashleftarrow" "Arrows" 10510)
-    (nil "dashrightarrow" "Arrows" 10511)
+    (nil "dashleftarrow" "Arrows" 10510) ;; #X290E
+    (nil "dashrightarrow" "Arrows" 10511) ;; #X290F
     (nil "dashleftrightarrow" "Arrows" nil)
-    (nil "leftsquigarrow" "Arrows" 8668)
-    (nil "Nearrow" "Arrows" 8663)
-    (nil "Searrow" "Arrows" 8664)
-    (nil "Nwarrow" "Arrows" 8662)
-    (nil "Swarrow" "Arrows" 8665)
-    (nil "leadstoext" "Arrows" 12316)
-    (nil "leadsto" "Arrows" 10547)
+    (nil "leftsquigarrow" "Arrows" 8668) ;; #X21DC
+    (nil "Nearrow" "Arrows" 8663) ;; #X21D7
+    (nil "Searrow" "Arrows" 8664) ;; #X21D8
+    (nil "Nwarrow" "Arrows" 8662) ;; #X21D6
+    (nil "Swarrow" "Arrows" 8665) ;; #X21D9
+    (nil "leadstoext" "Arrows" 12316) ;; #X301C
+    (nil "leadsto" "Arrows" 10547) ;; #X2933
     (nil "boxright" "Arrows" nil)
     (nil "Diamondright" "Arrows" nil)
     (nil "circleright" "Arrows" nil)
@@ -230,17 +230,17 @@
     (nil "DiamonddotRight" "Arrows" nil)
     (nil "DiamonddotLeft" "Arrows" nil)
     ;; Neg Arrows
-    (nil "ntwoheadrightarrow" "Neg Arrows" 10496)
-    (nil "ntwoheadleftarrow" "Neg Arrows" 11060)
+    (nil "ntwoheadrightarrow" "Neg Arrows" 10496) ;; #X2900
+    (nil "ntwoheadleftarrow" "Neg Arrows" 11060) ;; #X2B34
     ;; Binary Op
-    (nil "multimap" "Binary Op" 8888)
-    (nil "multimapinv" "Binary Op" 10204)
-    (nil "multimapboth" "Binary Op" 10719)
+    (nil "multimap" "Binary Op" 8888) ;; #X22B8
+    (nil "multimapinv" "Binary Op" 10204) ;; #X27DC
+    (nil "multimapboth" "Binary Op" 10719) ;; #X29DF
     (nil "multimapdot" "Binary Op" nil)
     (nil "multimapdotinv" "Binary Op" nil)
     (nil "multimapdotboth" "Binary Op" nil)
-    (nil "multimapdotbothA" "Binary Op" 8886)
-    (nil "multimapdotbothB" "Binary Op" 8887)
+    (nil "multimapdotbothA" "Binary Op" 8886) ;; #X22B6
+    (nil "multimapdotbothB" "Binary Op" 8887) ;; #X22B7
     (nil "multimapbothvert" "Binary Op" nil)
     (nil "multimapdotbothvert" "Binary Op" nil)
     (nil "multimapdotbothAvert" "Binary Op" nil)
@@ -248,35 +248,35 @@
     (nil "Wr" "Binary Op" nil)
     (nil "sqcupplus" "Binary Op" nil)
     (nil "sqcapplus" "Binary Op" nil)
-    (nil "medcirc" "Binary Op" 9898)
-    (nil "medbullet" "Binary Op" 9899)
-    (nil "invamp" "Binary Op" 8523)
-    (nil "Diamonddot" "Binary Op" 10192)
-    (nil "Diamond" "Binary Op" 9671)
-    (nil "Diamondblack" "Binary Op" 9670)
-    (nil "strictif" "Binary Op" 8880)
-    (nil "strictfi" "Binary Op" 8881)
+    (nil "medcirc" "Binary Op" 9898) ;; #X26AA
+    (nil "medbullet" "Binary Op" 9899) ;; #X26AB
+    (nil "invamp" "Binary Op" 8523) ;; #X214B
+    (nil "Diamonddot" "Binary Op" 10192) ;; #X27D0
+    (nil "Diamond" "Binary Op" 9671) ;; #X25C7
+    (nil "Diamondblack" "Binary Op" 9670) ;; #X25C6
+    (nil "strictif" "Binary Op" 8880) ;; #X22B0
+    (nil "strictfi" "Binary Op" 8881) ;; #X22B1
     (nil "strictiff" "Binary Op" nil)
-    (nil "circledless" "Binary Op" 10688)
-    (nil "circledgtr" "Binary Op" 10689)
+    (nil "circledless" "Binary Op" 10688) ;; #X29C0
+    (nil "circledgtr" "Binary Op" 10689) ;; #X29C1
     (nil "circledwedge" "Binary Op" nil)
     (nil "circledvee" "Binary Op" nil)
-    (nil "circledbar" "Binary Op" 10678)
-    (nil "circledbslash" "Binary Op" 10680)
+    (nil "circledbar" "Binary Op" 10678) ;; #X29B6
+    (nil "circledbslash" "Binary Op" 10680) ;; #X29B8
     (nil "bignplus" "Binary Op" nil)
     (nil "bigsqcupplus" "Binary Op" nil)
     (nil "bigsqcapplus" "Binary Op" nil)
-    (nil "bigsqcap" "Binary Op" 10757)
-    (nil "varprod" "Binary Op" 10761)
+    (nil "bigsqcap" "Binary Op" 10757) ;; #X2A05
+    (nil "varprod" "Binary Op" 10761) ;; #X2A09
     ;; Relational
-    (nil "doteq" "Relational" 8784)
-    (nil "VDash" "Relational" 8875)
+    (nil "doteq" "Relational" 8784) ;; #X2250
+    (nil "VDash" "Relational" 8875) ;; #X22AB
     (nil "VvDash" "Relational" nil)
-    (nil "cong" "Relational" 8773)
-    (nil "preceqq" "Relational" 10931)
-    (nil "succeqq" "Relational" 10932)
+    (nil "cong" "Relational" 8773) ;; #X2245
+    (nil "preceqq" "Relational" 10931) ;; #X2AB3
+    (nil "succeqq" "Relational" 10932) ;; #X2AB4
     (nil "coloneqq" "Relational" nil)
-    (nil "varparallel" "Relational" 11005)
+    (nil "varparallel" "Relational" 11005) ;; #X2AFD
     (nil "nvarparallel" "Relational" nil)
     (nil "varparallelinv" "Relational" nil)
     (nil "nvarparallelinv" "Relational" nil)
@@ -284,82 +284,82 @@
     (nil "colonsim" "Relational" nil)
     (nil "Colonapprox" "Relational" nil)
     (nil "Colonsim" "Relational" nil)
-    (nil "eqqcolon" "Relational" 8789)
+    (nil "eqqcolon" "Relational" 8789) ;; #X2255
     (nil "coloneq" "Relational" nil)
-    (nil "eqcolon" "Relational" 8761)
-    (nil "Coloneqq" "Relational" 10868)
+    (nil "eqcolon" "Relational" 8761) ;; #X2239
+    (nil "Coloneqq" "Relational" 10868) ;; #X2A74
     (nil "Eqqcolon" "Relational" nil)
     ;; Neg Rel
     (nil "nprecsim" "Neg Rel" nil)
     (nil "nsuccsim" "Neg Rel" nil)
-    (nil "nlesssim" "Neg Rel" 8820)
-    (nil "ngtrsim" "Neg Rel" 8821)
+    (nil "nlesssim" "Neg Rel" 8820) ;; #X2274
+    (nil "ngtrsim" "Neg Rel" 8821) ;; #X2275
     (nil "nlessapprox" "Neg Rel" nil)
     (nil "ngtrapprox" "Neg Rel" nil)
-    (nil "npreccurlyeq" "Neg Rel" 8928)
-    (nil "nsucccurlyeq" "Neg Rel" 8929)
-    (nil "ngtrless" "Neg Rel" 8825)
-    (nil "nlessgtr" "Neg Rel" 8824)
+    (nil "npreccurlyeq" "Neg Rel" 8928) ;; #X22E0
+    (nil "nsucccurlyeq" "Neg Rel" 8929) ;; #X22E1
+    (nil "ngtrless" "Neg Rel" 8825) ;; #X2279
+    (nil "nlessgtr" "Neg Rel" 8824) ;; #X2278
     (nil "nbumpeq" "Neg Rel" nil)
     (nil "nBumpeq" "Neg Rel" nil)
     (nil "nbacksim" "Neg Rel" nil)
     (nil "nbacksimeq" "Neg Rel" nil)
-    (nil "nasymp" "Neg Rel" 8813)
-    (nil "nequiv" "Neg Rel" 8802)
-    (nil "nsim" "Neg Rel" 8769)
-    (nil "napprox" "Neg Rel" 8777)
-    (nil "nsubset" "Neg Rel" 8836)
-    (nil "nsupset" "Neg Rel" 8837)
+    (nil "nasymp" "Neg Rel" 8813) ;; #X226D
+    (nil "nequiv" "Neg Rel" 8802) ;; #X2262
+    (nil "nsim" "Neg Rel" 8769) ;; #X2241
+    (nil "napprox" "Neg Rel" 8777) ;; #X2249
+    (nil "nsubset" "Neg Rel" 8836) ;; #X2284
+    (nil "nsupset" "Neg Rel" 8837) ;; #X2285
     (nil "nll" "Neg Rel" nil)
     (nil "ngg" "Neg Rel" nil)
-    (nil "nthickapprox" "Neg Rel" 8777)
+    (nil "nthickapprox" "Neg Rel" 8777) ;; #X2249
     (nil "napproxeq" "Neg Rel" nil)
     (nil "nprecapprox" "Neg Rel" nil)
     (nil "nsuccapprox" "Neg Rel" nil)
     (nil "npreceqq" "Neg Rel" nil)
     (nil "nsucceqq" "Neg Rel" nil)
-    (nil "nsimeq" "Neg Rel" 8772)
-    (nil "notin" "Neg Rel" 8713)
-    (nil "notni" "Neg Rel" 8716)
+    (nil "nsimeq" "Neg Rel" 8772) ;; #X2244
+    (nil "notin" "Neg Rel" 8713) ;; #X2209
+    (nil "notni" "Neg Rel" 8716) ;; #X220C
     (nil "nSubset" "Neg Rel" nil)
     (nil "nSupset" "Neg Rel" nil)
-    (nil "nsqsubseteq" "Neg Rel" 8930)
-    (nil "nsqsupseteq" "Neg Rel" 8931)
+    (nil "nsqsubseteq" "Neg Rel" 8930) ;; #X22E2
+    (nil "nsqsupseteq" "Neg Rel" 8931) ;; #X22E3
     (nil "nsqsubset" "Neg Rel" nil)
     (nil "nsqsupset" "Neg Rel" nil)
     ;; Delimeters
-    (nil "Lbag" "Delimeters" 10181)
-    (nil "Rbag" "Delimeters" 10182)
-    (nil "llbracket" "Delimeters" 10214)
-    (nil "rrbracket" "Delimeters" 10215)
+    (nil "Lbag" "Delimeters" 10181) ;; #X27C5
+    (nil "Rbag" "Delimeters" 10182) ;; #X27C6
+    (nil "llbracket" "Delimeters" 10214) ;; #X27E6
+    (nil "rrbracket" "Delimeters" 10215) ;; #X27E7
     ;; Accents
-    (nil "widearc" "Accents" 8978)
-    (nil "widearcarrow" "Accents" 8405)
-    (nil "wideOarc" "Accents" 8405)
-    (nil "wideparen" "Accents" 9180)
+    (nil "widearc" "Accents" 8978) ;; #X2312
+    (nil "widearcarrow" "Accents" 8405) ;; #X20D5
+    (nil "wideOarc" "Accents" 8405) ;; #X20D5
+    (nil "wideparen" "Accents" 9180) ;; #X23DC
     (nil "widering" "Accents" nil)
     ;; Misc
-    ("v 0" "varemptyset" "Misc" 8709)
-    (nil "lJoin" "Misc" 8905)
-    (nil "rJoin" "Misc" 8906)
-    (nil "Join" "Misc" 8904)
+    ("v 0" "varemptyset" "Misc" 8709) ;; #X2205
+    (nil "lJoin" "Misc" 8905) ;; #X22C9
+    (nil "rJoin" "Misc" 8906) ;; #X22CA
+    (nil "Join" "Misc" 8904) ;; #X22C8
     (nil "openJoin" "Misc" nil)
     (nil "lrtimes" "Misc" nil)
     (nil "opentimes" "Misc" nil)
     (nil "nplus" "Misc" nil)
-    (nil "Top" "Misc" 10986)
-    (nil "Bot" "Misc" 10987)
-    (nil "Perp" "Misc" 10987)
+    (nil "Top" "Misc" 10986) ;; #X2AEA
+    (nil "Bot" "Misc" 10987) ;; #X2AEB
+    (nil "Perp" "Misc" 10987) ;; #X2AEB
     (nil "boxast" "Misc" nil)
     (nil "boxbslash" "Misc" nil)
     (nil "boxbar" "Misc" nil)
     (nil "boxslash" "Misc" nil)
-    (nil "lambdaslash" "Misc" 411)
-    (nil "lambdabar" "Misc" 411)
-    (nil "varclubsuit" "Misc" 9831)
-    (nil "vardiamondsuit" "Misc" 9830)
-    (nil "varheartsuit" "Misc" 9829)
-    (nil "varspadesuit" "Misc" 9828))
+    (nil "lambdaslash" "Misc" 411) ;; #X019B
+    (nil "lambdabar" "Misc" 411) ;; #X019B
+    (nil "varclubsuit" "Misc" 9831) ;; #X2667
+    (nil "vardiamondsuit" "Misc" 9830) ;; #X2666
+    (nil "varheartsuit" "Misc" 9829) ;; #X2665
+    (nil "varspadesuit" "Misc" 9828)) ;; #X2664
   "Alist of kpfonts symbols.
 
 Each entry should be a list with upto four elements, KEY, VALUE,
