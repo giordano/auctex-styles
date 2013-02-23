@@ -228,6 +228,12 @@
 
 (defun LaTeX-hyperref-package-options nil
   "Prompt for package options for the hyperref package."
-  (TeX-arg-key-val optional LaTeX-hyperref-package-options))
+  ;; Can't use directly `TeX-arg-key-val' because that would insert an empty
+  ;; `[]' after `\usepackage' when `options' is empty.
+  (let ((options (multi-prompt-key-value
+		  (TeX-argument-prompt optional "Options (k=v)" nil)
+		  LaTeX-hyperref-package-options)))
+    options))
+
 
 ;;; hyperref.el ends here

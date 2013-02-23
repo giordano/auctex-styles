@@ -597,6 +597,11 @@ string."
 
 (defun LaTeX-siunitx-package-options nil
   "Prompt for package options for the siunitx package."
-  (TeX-arg-key-val optional LaTeX-siunitx-package-options))
+  ;; Can't use directly `TeX-arg-key-val' because that would insert an empty
+  ;; `[]' after `\usepackage' when `options' is empty.
+  (let ((options (multi-prompt-key-value
+		  (TeX-argument-prompt optional "Options (k=v)" nil)
+		  LaTeX-siunitx-package-options)))
+      options))
 
 ;; siunitx.el ends here

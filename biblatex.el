@@ -619,6 +619,11 @@
 	      "authortitle-tcomp" "authortitle-ticomp" "verbose" "verbose-ibid"
 	      "verbose-note" "verbose-inote" "verbose-trad1" "verbose-trad2"
 	      "verbose-trad3" "reading" "draft" "debug"))))
-  (TeX-arg-key-val optional LaTeX-biblatex-package-options-list))
+  ;; Can't use directly `TeX-arg-key-val' because that would insert an empty
+  ;; `[]' after `\usepackage' when `options' is empty.
+  (let ((options (multi-prompt-key-value
+		  (TeX-argument-prompt optional "Options (k=v)" nil)
+		  LaTeX-biblatex-package-options-list)))
+    options))
 
 ;;; biblatex.el ends here
