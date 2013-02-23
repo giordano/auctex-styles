@@ -287,11 +287,6 @@ be a list with strings to be used as values for the key."
 
 (defun LaTeX-acro-package-options nil
   "Prompt for package options for the acro package."
-  ;; Can't use directly `TeX-arg-key-val' because that would insert an empty
-  ;; `[]' after `\usepackage' when `options' is empty.
-  (let ((options (multi-prompt-key-value
-		  (TeX-argument-prompt optional "Options (k=v)" nil)
-		  LaTeX-acro-package-options-list)))
-    options))
+  (TeX-arg-key-val optional LaTeX-acro-package-options-list))
 
 ;;; acro.el ends here
