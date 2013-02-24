@@ -29,7 +29,7 @@
 
 ;;; Code:
 
-;;; Kpfonts Minor Mode (heavily based on code of LaTeX Math Minor Mode)
+;;; Kpfonts Minor Mode (heavily based on LaTeX Math Minor Mode code)
 
 (defconst LaTeX-kpfonts-default
   '(;; Other Greek Lowercase
@@ -403,7 +403,7 @@ usually used in the Emacs and Elisp manuals.")
 The menu entries will be generated dynamically, but you can specify
 the sequence by initializing this variable.")
 
-;; We set `LaTeX-kpfonts-menu' after its definition because otherwise resetting
+;; We set `LaTeX-kpfonts-menu' after its definition because otherwise, resetting
 ;; AUCTeX with `C-u C-c C-n' would create duplicate entries in menu.
 (setq LaTeX-kpfonts-menu
       '("Kpfonts"
@@ -509,7 +509,7 @@ following commands are defined:
   LaTeX-kpfonts-menu)
 
 (defvar LaTeX-kpfonts-mode-enable LaTeX-math-mode
-  "Whether to enable kpfonts minor mode.")
+  "If non-nil, enable kpfonts minor mode by default.")
 
 (if LaTeX-kpfonts-mode-enable
     (LaTeX-kpfonts-mode))
