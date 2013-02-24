@@ -30,6 +30,38 @@
 
 ;;; Code:
 
+(defvar LaTeX-biblatex-addbibresource-options
+  '(("label")
+    ("location" ("local" "remote"))
+    ("type" ("file"))
+    ("datatype" ("bibtex" "ris" "zoterordfxml" "endnotexml")))
+  "Key=value options for addbibresource macro of the biblatex package.")
+
+(defun LaTeX-arg-addbibresource (optional &optional prompt)
+  "Prompt for a BibLaTeX database file.
+If OPTIONAL is non-nil, insert the resulting value as an optional
+argument, otherwise as a mandatory one.  Use PROMPT as the prompt
+string."
+  (let (files inputs database)
+    (if LaTeX-using-Biber
+	(setq files 'TeX-Biber-global-files
+	      inputs 'biberinputs)
+      (setq files 'BibTeX-global-files
+	    inputs 'bibinputs))
+    (setq files 'TeX-Biber-global-files
+	  inputs 'biberinputs)
+    (message "Searching for BibLaTeX files...")
+    (or (symbol-value files)
+	(set files (mapcar 'list (TeX-search-files-by-type
+				  'biberinputs 'global t nil))))
+    (setq database (completing-read
+		    (TeX-argument-prompt optional prompt "BibLaTeX files")
+		    (append (mapcar 'list (TeX-search-files-by-type
+					   inputs 'local t nil))
+			    (symbol-value files))))
+    (LaTeX-add-bibliographies database)
+    (TeX-argument-insert database optional)))
+
 (TeX-add-style-hook
  "biblatex"
  (lambda ()
@@ -47,6 +79,10 @@
     "logreq"
     "ifthen"
     "url")
+   (TeX-add-symbols
+    '("addbibresource" [TeX-arg-key-val LaTeX-biblatex-addbibresource-options]
+      LaTeX-arg-addbibresource))
+
    ;; TODO: add symbols according to `biblatex' manual.  Here is an automatic
    ;; genereted list using `TeX-auto-generate'.
    (TeX-add-symbols
@@ -83,7 +119,6 @@
     "AtEveryCite"
     "addsectionbib"
     "addglobalbib"
-    "addbibresource"
     "refsegment"
     "newrefsegment"
     "refsection"
