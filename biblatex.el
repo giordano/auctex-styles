@@ -187,13 +187,16 @@ string."
 (defun LaTeX-biblatex-package-options nil
   "Prompt for package options for the biblatex package."
   (unless BibLaTeX-global-style-files
-    (if (eq TeX-arg-input-file-search t)  ;; Treat `ask' value as `nil'.
+    (if (if (eq TeX-arg-input-file-search 'ask)
+	    (not (y-or-n-p "Find BibLaTeX style yourself? "))
+	  TeX-arg-input-file-search)
 	;; ...then, search for BibLaTeX styles.
 	(progn
 	  (message "Searching for BibLaTeX styles...")
 	  (setq BibLaTeX-global-style-files
 		(mapcar 'identity (TeX-search-files-by-type 'bbxinputs 'global t t))))
-      ;; ...else, use default BibLaTeX styles.
+      ;; ...else, use standard BibLaTeX styles (see §3.3 of Biblatex reference
+      ;; manual).
       (setq BibLaTeX-global-style-files
 	    '("numeric" "numeric-comp" "numeric-verb" "alphabetic"
 	      "alphabetic-verb" "authoryear" "authoryear-comp" "authoryear-ibid"
