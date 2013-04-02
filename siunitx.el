@@ -1,4 +1,4 @@
-;;; siunitx.el --- AUCTeX style for `siunitx.sty' version 2.5p.
+;;; siunitx.el --- AUCTeX style for `siunitx.sty' version 2.5q.
 
 ;; Copyright (C) 2012-2013 Free Software Foundation, Inc.
 
@@ -25,7 +25,7 @@
 
 ;;; Commentary:
 
-;; This file adds support for `siunitx.sty' version 2.5p.
+;; This file adds support for `siunitx.sty' version 2.5q.
 
 ;;; Code:
 
@@ -390,7 +390,7 @@ string."
     "\\per"
     "\\of")
    ;; Abbreviated units (available unless `abbreviations' option is set to `false')
-   (unless (member "abbreviations=false" TeX-active-styles)
+   (unless (LaTeX-provided-package-options-member "siunitx" "abbreviations=false")
      (LaTeX-add-siunitx-units
       "\\fg"
       "\\pg"
@@ -479,8 +479,8 @@ string."
       "\\K"
       "\\dB"))
    ;; Binary prefixes and units available when `binary-units' option is used
-   (when (or (member "binary-units" TeX-active-styles)
-	     (member "binary-units=true" TeX-active-styles))
+   (when (or (LaTeX-provided-package-options-member "siunitx" "binary-units")
+	     (LaTeX-provided-package-options-member "siunitx" "binary-units=true"))
      (LaTeX-add-siunitx-units
       "\\kibi"
       "\\mebi"
@@ -502,8 +502,8 @@ string."
     "\\SIUnitSymbolMicro"
     "\\SIUnitSymbolOhm")
    ;; Macros available when `version-1-compatibility' option is used
-   (when (or (member "version-1-compatibility" TeX-active-styles)
-	     (member "version-1-compatibility=true" TeX-active-styles))
+   (when (or (LaTeX-provided-package-options-member "siunitx" "version-1-compatibility")
+	     (LaTeX-provided-package-options-member "siunitx" "version-1-compatibility=true"))
      (LaTeX-add-siunitx-units
       "\\Square"
       "\\ssquare"

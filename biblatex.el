@@ -67,9 +67,9 @@ string."
  (lambda ()
    ;; Biblatex uses as default backend biber, run it unless biblatex `backend'
    ;; option value is one of `bibtex', `bibtex8', `bibtexu'.
-   (unless (or (member "backend=bibtex" TeX-active-styles)
-	       (member "backend=bibtex8" TeX-active-styles)
-	       (member "backend=bibtexu" TeX-active-styles))
+   (unless (or (LaTeX-provided-package-options-member "biblatex" "backend=bibtex")
+	       (LaTeX-provided-package-options-member "biblatex" "backend=bibtex8")
+	       (LaTeX-provided-package-options-member "biblatex" "backend=bibtexu"))
      (setq LaTeX-using-Biber t))
 
    (TeX-run-style-hooks

@@ -95,8 +95,8 @@
   (mapcar (lambda (symbol)
 	    (add-to-list 'LaTeX-acro-acronym-list (list symbol)))
 	  LaTeX-auto-acro-acronym)
-  (when (or (member "macros" TeX-active-styles)
-	    (member "macros=true" TeX-active-styles))
+  (when (or (LaTeX-provided-package-options-member "acro" "macros")
+	    (LaTeX-provided-package-options-member "acro" "macros=true"))
     (add-to-list 'TeX-auto-symbol LaTeX-auto-acro-acronym)))
 
 ;; FIXME: This does not seem to work unless one does a manual reparse.
