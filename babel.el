@@ -51,8 +51,14 @@
 (defun LaTeX-babel-active-languages ()
   "Return a list of languages used in the document."
   (let (active-languages)
-    ;; Loop over options provided to `babel' package at load time.
-    (dolist (elt (cdr (assoc "babel" LaTeX-provided-package-options)))
+    ;; Loop over options provided to class and `babel' package at load time.
+    (dolist (elt (append
+		  ;; In most cases there is only one element in the alist, if
+		  ;; there is more than one element, the first one should
+		  ;; contain the class options of the current buffer.  So we can
+		  ;; take the car of `LaTeX-provided-class-options'.
+		  (cdr (car LaTeX-provided-class-options))
+		  (cdr (assoc "babel" LaTeX-provided-package-options))))
       (when (member elt LaTeX-babel-language-list)
 	;; Append element to `active-languages' to respect loading order.
 	;; `babel' package uses as default language the last loaded one.

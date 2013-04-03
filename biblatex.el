@@ -195,8 +195,8 @@ string."
 	  (message "Searching for BibLaTeX styles...")
 	  (setq BibLaTeX-global-style-files
 		(mapcar 'identity (TeX-search-files-by-type 'bbxinputs 'global t t))))
-      ;; ...else, use standard BibLaTeX styles (see §3.3 of Biblatex reference
-      ;; manual).
+      ;; ...else, use for completion only standard BibLaTeX styles (see §3.3 of
+      ;; Biblatex reference manual).
       (setq BibLaTeX-global-style-files
 	    '("numeric" "numeric-comp" "numeric-verb" "alphabetic"
 	      "alphabetic-verb" "authoryear" "authoryear-comp" "authoryear-ibid"
