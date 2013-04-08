@@ -92,9 +92,9 @@
 (defun LaTeX-acro-cleanup ()
   "Move symbols from `LaTeX-auto-acro-acronym' to `LaTeX-acro-list'
  and to `TeX-auto-symbol' if option `macros' is set to `true'."
-  (mapcar (lambda (symbol)
-	    (add-to-list 'LaTeX-acro-acronym-list (list symbol)))
-	  LaTeX-auto-acro-acronym)
+  (mapc (lambda (symbol)
+	  (add-to-list 'LaTeX-acro-acronym-list (list symbol)))
+	LaTeX-auto-acro-acronym)
   (when (or (LaTeX-provided-package-options-member "acro" "macros")
 	    (LaTeX-provided-package-options-member "acro" "macros=true"))
     (add-to-list 'TeX-auto-symbol LaTeX-auto-acro-acronym)))
