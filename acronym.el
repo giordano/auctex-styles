@@ -33,26 +33,28 @@
 
 ;; Self Parsing -- see (info "(auctex)Hacking the Parser").
 (defvar LaTeX-acronym-regexp
-  "\\\\acro{\\([^\n\r%\\{}]+\\)}"
-  "Matches acronym.")
+  (concat "\\\\\\(?:acro\\|newacro\\|acrodef\\)" "{\\([^\n\r%\\{}]+\\)}")
+  "Matches acronyms by `acronym' package.")
 
 (defvar LaTeX-auto-acronym nil
-  "Temporary for parsing acronym definitions.")
+  "Temporary for parsing acronym by `acronym' package.")
 
 (defun LaTeX-acronym-prepare ()
   "Clear `LaTex-auto-acronym' before use."
   (setq LaTeX-auto-acronym nil))
 
 (defun LaTeX-acronym-cleanup ()
-  "Move symbols from `LaTeX-auto-acronym' to `LaTeX-acronym-list'."
-  (mapcar (lambda (symbol)
-	    (add-to-list 'LaTeX-acronym-list (list symbol)))
-	  LaTeX-auto-acronym))
+  "Move acronyms from `LaTeX-auto-acronym' to `LaTeX-acronym-list'."
+  (mapc (lambda (acronym)
+	  (add-to-list 'LaTeX-acronym-list (list acronym)))
+	LaTeX-auto-acronym))
 
 ;; FIXME: This does not seem to work unless one does a manual reparse.
 (add-hook 'TeX-auto-prepare-hook 'LaTeX-acronym-prepare)
 (add-hook 'TeX-auto-cleanup-hook 'LaTeX-acronym-cleanup)
 
+;; The former `acronym' stands for package name, the latter stands for the
+;; argument of the macro calling this function.
 (defun LaTeX-arg-acronym-acronym (optional &optional prompt definition)
   "Prompt for an acronym completing with known acronyms.
 If OPTIONAL is non-nil, insert the resulting value as an optional
@@ -80,6 +82,7 @@ string."
     '("acronym" LaTeX-env-args
       [TeX-arg-string "Longest acronym"]))
    (TeX-add-symbols
+    ;; Acronyms in the Text
     '("ac" LaTeX-arg-acronym-acronym)
     '("acresetall" 0)
     '("acf" LaTeX-arg-acronym-acronym)
@@ -108,16 +111,23 @@ string."
     '("aclu*" LaTeX-arg-acronym-acronym)
     '("iac*" LaTeX-arg-acronym-acronym)
     '("Iac*" LaTeX-arg-acronym-acronym)
+    ;; Customization
     '("acsfont" 1)
     '("acffont" 1)
     '("acfsfont" 1)
+    ;; Defining Acronyms
     '("acro" LaTeX-arg-define-acronym-acronym [ "Short name" ] "Full name")
     '("acroextra" "Additional info")
     '("newacro" LaTeX-arg-define-acronym-acronym [ "Short name" ] "Full name")
     '("acrodef" LaTeX-arg-define-acronym-acronym [ "Short name" ] "Full name")
-    '("acroindefinite" LaTeX-arg-acronym-acronym "Short indefinite article" "Long indefinite article")
-    '("acrodefindefinite" LaTeX-arg-acronym-acronym "Short indefinite article" "Long indefinite article")
-    '("newacroindefinite" LaTeX-arg-acronym-acronym "Short indefinite article" "Long indefinite article")
+    ;; Non standard indefinite articles
+    '("acroindefinite" LaTeX-arg-acronym-acronym
+      "Short indefinite article" "Long indefinite article")
+    '("acrodefindefinite" LaTeX-arg-acronym-acronym
+      "Short indefinite article" "Long indefinite article")
+    '("newacroindefinite" LaTeX-arg-acronym-acronym
+      "Short indefinite article" "Long indefinite article")
+    ;; Non standard and foreign plural forms
     '("acroplural" LaTeX-arg-acronym-acronym [ "Short plural" ] "Long plural")
     '("acrodefplural" LaTeX-arg-acronym-acronym [ "Short plural" ] "Long plural")
     '("newacroplural" LaTeX-arg-acronym-acronym [ "Short plural" ] "Long plural"))

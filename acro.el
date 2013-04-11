@@ -1,4 +1,4 @@
-;;; acro.el --- AUCTeX style for `acro.sty' version 1.2.
+;;; acro.el --- AUCTeX style for `acro.sty' version 1.2a.
 
 ;; Copyright (C) 2013 Free Software Foundation, Inc.
 
@@ -25,7 +25,7 @@
 
 ;;; Commentary:
 
-;; This file adds support for `acro.sty' version 1.2.
+;; This file adds support for `acro.sty' version 1.2a.
 
 ;;; Code:
 
@@ -61,7 +61,7 @@
     ;; Options Regarding the List
     ("page-ref" ("none" "plain" "comma" "paren"))
     ("page-name")
-    ("page-names")
+    ("pages-name")
     ("page-ranges" ("true" "false"))
     ("next-page")
     ("next-pages")
@@ -79,7 +79,7 @@
 
 ;; Self Parsing -- see (info "(auctex)Hacking the Parser").
 (defvar LaTeX-acro-regexp
-  "\\\\DeclareAcronym{\\([^\n\r%\\{}]+\\)}"
+  (concat "\\\\DeclareAcronym" "{\\([^\n\r%\\{}]+\\)}")
   "Matches `acro' acronym definitions.")
 
 (defvar LaTeX-auto-acro-acronym nil
@@ -90,10 +90,11 @@
   (setq LaTeX-auto-acro-acronym nil))
 
 (defun LaTeX-acro-cleanup ()
-  "Move symbols from `LaTeX-auto-acro-acronym' to `LaTeX-acro-list'
- and to `TeX-auto-symbol' if option `macros' is set to `true'."
-  (mapc (lambda (symbol)
-	  (add-to-list 'LaTeX-acro-acronym-list (list symbol)))
+  "Move acronyms from `LaTeX-auto-acro-acronym' to
+`LaTeX-acro-list' and to `TeX-auto-symbol' if option `macros' is
+set to `true'."
+  (mapc (lambda (acronym)
+	  (add-to-list 'LaTeX-acro-acronym-list (list acronym)))
 	LaTeX-auto-acro-acronym)
   (when (or (LaTeX-provided-package-options-member "acro" "macros")
 	    (LaTeX-provided-package-options-member "acro" "macros=true"))
@@ -149,8 +150,9 @@ be a list with strings to be used as values for the key."
 	(space-must-match (lookup-key minibuffer-local-must-match-map " ")))
     (define-key minibuffer-local-completion-map " " nil)
     (define-key minibuffer-local-must-match-map " " nil)
-    (let ((var (multi-prompt-key-value (TeX-argument-prompt optional "Options (k=v)" prompt)
-				       (eval key-val-alist))))
+    (let ((var (multi-prompt-key-value
+		(TeX-argument-prompt optional "Options (k=v)" prompt)
+		(eval key-val-alist))))
       (TeX-argument-insert var optional))
     ;; Restore <SPC> key bindings in minibuffer.
     (define-key minibuffer-local-completion-map " " space-completion)
@@ -285,7 +287,7 @@ be a list with strings to be used as values for the key."
 				("acuse" "{"))
 			      'function))))
 
-(defun LaTeX-acro-package-options nil
+(defun LaTeX-acro-package-options ()
   "Prompt for package options for the acro package."
   (TeX-read-key-val t LaTeX-acro-package-options-list))
 
