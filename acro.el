@@ -146,17 +146,16 @@ string.  KEY-VAL-ALIST is an alist.  The car of each element
 should be a string representing a key and the optional cdr should
 be a list with strings to be used as values for the key."
   ;; Remove <SPC> key bindings in minibuffer.
-  (let ((space-completion (lookup-key minibuffer-local-completion-map " "))
-	(space-must-match (lookup-key minibuffer-local-must-match-map " ")))
-    (define-key minibuffer-local-completion-map " " nil)
-    (define-key minibuffer-local-must-match-map " " nil)
-    (let ((var (multi-prompt-key-value
-		(TeX-argument-prompt optional "Options (k=v)" prompt)
-		(eval key-val-alist))))
-      (TeX-argument-insert var optional))
-    ;; Restore <SPC> key bindings in minibuffer.
-    (define-key minibuffer-local-completion-map " " space-completion)
-    (define-key minibuffer-local-must-match-map " " space-must-match)))
+  (let* ((minibuffer-local-completion-map
+	  (remove (assoc 32 minibuffer-local-completion-map)
+		  minibuffer-local-completion-map))
+	 (minibuffer-local-must-match-map
+	  (remove (assoc 32 minibuffer-local-must-match-map)
+		  minibuffer-local-must-match-map))
+	 (var (multi-prompt-key-value
+	       (TeX-argument-prompt optional "Options (k=v)" prompt)
+	       (eval key-val-alist))))
+    (TeX-argument-insert var optional)))
 
 (TeX-add-style-hook
  "acro"
