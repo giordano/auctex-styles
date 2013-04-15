@@ -139,23 +139,17 @@ in its optional argument.")
 
 (defun LaTeX-arg-acro-key-val (optional prompt key-val-alist)
   "Prompt for keys and values in KEY-VAL-ALIST.
-<SPC> key bindings in minibuffer are removed temporarily.  Insert
+<SPC> key binding in minibuffer is removed temporarily.  Insert
 the given value as a TeX macro argument.  If OPTIONAL is non-nil,
 insert it as an optional argument.  Use PROMPT as the prompt
 string.  KEY-VAL-ALIST is an alist.  The car of each element
 should be a string representing a key and the optional cdr should
 be a list with strings to be used as values for the key."
-  ;; Remove <SPC> key bindings in minibuffer.
-  (let* ((minibuffer-local-completion-map
-	  (remove (assoc 32 minibuffer-local-completion-map)
-		  minibuffer-local-completion-map))
-	 (minibuffer-local-must-match-map
-	  (remove (assoc 32 minibuffer-local-must-match-map)
-		  minibuffer-local-must-match-map))
-	 (var (multi-prompt-key-value
-	       (TeX-argument-prompt optional "Options (k=v)" prompt)
-	       (eval key-val-alist))))
-    (TeX-argument-insert var optional)))
+  ;; Remove <SPC> key binding from map used in `multi-prompt-key-value' (called
+  ;; by `TeX-arg-key-val') with `require-match' set to `nil'.
+  (let ((crm-local-completion-map
+	 (remove (assoc 32 crm-local-completion-map) crm-local-completion-map)))
+    (TeX-arg-key-val optional key-val-alist prompt)))
 
 (TeX-add-style-hook
  "acro"

@@ -64,17 +64,18 @@ argument, otherwise as a mandatory one.  Use PROMPT as the prompt
 string.  If INITIAL-INPUT is non-nil, insert it in the minibuffer
 initially, with point positioned at the end.  If DEFINITION is
 non-nil, add the chosen unit to the list of defined units."
-  ;; Remove <SPC> key bindings in minibuffer and set completion
-  ;; separator to <SPC>.
-  (let* ((minibuffer-local-completion-map
+  ;; Remove <SPC> key binding from map used in `TeX-completing-read-multiple'
+  ;; with `require-match' set to `nil' (it's `crm-local-completion-map' if
+  ;; `completing-read-multiple' is bound, `minibuffer-local-completion-map'
+  ;; otherwise) and set completion separator to <SPC>.
+  (let* ((crm-local-completion-map
+	  (remove (assoc 32 crm-local-completion-map) crm-local-completion-map))
+	 (minibuffer-local-completion-map
 	  (remove (assoc 32 minibuffer-local-completion-map)
 		  minibuffer-local-completion-map))
-	 (minibuffer-local-must-match-map
-	  (remove (assoc 32 minibuffer-local-must-match-map)
-		  minibuffer-local-must-match-map))
 	 (crm-separator " ")
 	 (unit (mapconcat 'identity
-			  (completing-read-multiple
+			  (TeX-completing-read-multiple
 			   (TeX-argument-prompt optional prompt "Unit")
 			   (LaTeX-siunitx-unit-list) nil nil initial-input)
 			  crm-separator)))
