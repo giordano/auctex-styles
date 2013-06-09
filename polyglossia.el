@@ -29,9 +29,9 @@
 
 ;;; TODO:
 
-;; -- Create language specific styles with names `gloss-<lang>.el'.  They should
-;;    add `text<lang>' macros, `<lang>' environments (`Arabic' for `arabic'
-;;    language), and the others language-specific commands.
+;; Create language specific styles with names `gloss-<lang>.el'.  They should
+;; add `text<lang>' macros, `<lang>' environments (`Arabic' for `arabic'
+;; language), and the others language-specific commands.
 
 ;;; Code:
 
@@ -46,7 +46,7 @@
 (defvar LaTeX-polyglossia-setkeys-regexp
   (concat "\\\\setkeys"
 	  "[ \t\n\r]*{\\([A-Za-z]+\\)}[ \t\n\r]*{\\([^}]\\)}")
-  "Matches polyglossia languages options set using `\setkeys'.")
+  "Matches polyglossia languages options set using \"\setkeys\".")
 
 (defvar LaTeX-auto-polyglossia-lang nil
   "Temporary for parsing polyglossia languages.")
@@ -62,7 +62,7 @@
 (defun LaTeX-polyglossia-cleanup ()
   "Move languages and their options from
 `LaTeX-auto-polyglossia-lang' to `LaTeX-polyglossia-lang-list'."
-  ;; Examle: now the value of `LaTeX-auto-polyglossia-lang' is something like
+  ;; Example: now the value of `LaTeX-auto-polyglossia-lang' is something like
   ;;   '(("danish" "defaultlanguage" "")
   ;;     ("arabic" "otherlanguage" "locale=tunisia,numerals=maghrib")
   ;;     ("german" "otherlanguage" "spelling=new,script=latin")
@@ -138,9 +138,9 @@ The value is actually the tail of the list of options given to LANGUAGE."
   "Prompt for language and its options with completion and insert them
 as arguments.
 
-This function is triggered by `\setdefaultlanguage',
-`\setotherlanguage', `\setotherlanguages', and `\setkeys' macros
-by polyglossia package.
+This function is triggered by \"\setdefaultlanguage\",
+\"\setotherlanguage\", \"\setotherlanguages\", and \"\setkeys\"
+macros by polyglossia package.
 
 OPTIONAL is ignored, if DEFAULT is non-nil treat inserted
 language as default, if MULTIPLE is non-nil prompt for multiple
@@ -216,14 +216,11 @@ argument, otherwise as a mandatory one."
 	 (LaTeX-polyglossia-active-languages))
    (TeX-run-style-hooks "etoolbox" "makecmds" "xkeyval" "fontspec")
    (TeX-add-symbols
-    ;; Double `ignore's at the end of the following definitions is needed to
-    ;; fool `TeX-auto-generate'd style file of `polyglossia.sty', which
-    ;; otherwise would override these macro definitions.
-    '("setdefaultlanguage" (LaTeX-arg-polyglossia-lang  t  nil nil) (ignore) (ignore))
-    '("setmainlanguage"    (LaTeX-arg-polyglossia-lang  t  nil nil) (ignore) (ignore))
-    '("setotherlanguage"   (LaTeX-arg-polyglossia-lang nil nil nil) (ignore) (ignore))
-    '("setotherlanguages"  (LaTeX-arg-polyglossia-lang nil  t  nil) (ignore) (ignore))
-    '("setkeys"            (LaTeX-arg-polyglossia-lang nil nil  t ) (ignore) (ignore))
+    '("setdefaultlanguage" (LaTeX-arg-polyglossia-lang  t  nil nil))
+    '("setmainlanguage"    (LaTeX-arg-polyglossia-lang  t  nil nil))
+    '("setotherlanguage"   (LaTeX-arg-polyglossia-lang nil nil nil))
+    '("setotherlanguages"  (LaTeX-arg-polyglossia-lang nil  t  nil))
+    '("setkeys"            (LaTeX-arg-polyglossia-lang nil nil  t ))
     '("PolyglossiaSetup" (TeX-arg-key-val LaTeX-polyglossia-lang-list)
       LaTeX-arg-polyglossiasetup-options))
    ;; Fontification
