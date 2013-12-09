@@ -74,31 +74,33 @@
   ;;     ("icelandic" "otherlanguages")
   ;;     ("brazil" "otherlanguages")
   ;;     ("sanskrit" "otherlanguages" "script=Devanagari"))
-  ;; with `script=Devanagari' option to `sanskrit' language set using
-  ;; `\setkeys'.
+  ;; with "script=Devanagari" option to "sanskrit" language set using
+  ;; "\setkeys".
   ;; In each element of the alist, the key is the language, the second value is
   ;; the polyglossia command which set the language, the rest of values is the
   ;; list of options given to the language.
   (let (tmp newelt opts otheropts)
-    (dolist (elt LaTeX-auto-polyglossia-lang)
-      (mapc
-       (lambda (language)
-	 ;; `opts' is the string of options for `language', set using
-	 ;; `\setdefaultlanguage' or `\setotherlanguage'.
-	 (setq opts (cdr (cdr elt)))
-	 ;; `otheropts' is the string of options for `language' set using
-	 ;; `\setkeys'.
-	 (setq otheropts
-	       (car (cdr (assoc language LaTeX-auto-polyglossia-setkeys))))
-	 (setq newelt
-	       (append
-		(list language) (list (nth 1 elt))
-		(unless (equal opts '(""))
-		  (LaTeX-listify-package-options (car opts)))
-		(if otheropts (LaTeX-listify-package-options otheropts))))
-	 (add-to-list 'LaTeX-polyglossia-lang-list newelt t)
-	 (add-to-list 'tmp newelt t))
-       (LaTeX-listify-package-options (car elt))))
+    (mapc
+     (lambda (elt)
+       (mapc
+	(lambda (language)
+	  ;; `opts' is the string of options for `language', set using
+	  ;; "\setdefaultlanguage" or "\setotherlanguage".
+	  (setq opts (cdr (cdr elt)))
+	  ;; `otheropts' is the string of options for `language' set using
+	  ;; "\setkeys".
+	  (setq otheropts
+		(car (cdr (assoc language LaTeX-auto-polyglossia-setkeys))))
+	  (setq newelt
+		(append
+		 (list language) (list (nth 1 elt))
+		 (unless (equal opts '(""))
+		   (LaTeX-listify-package-options (car opts)))
+		 (if otheropts (LaTeX-listify-package-options otheropts))))
+	  (add-to-list 'LaTeX-polyglossia-lang-list newelt t)
+	  (add-to-list 'tmp newelt t))
+	(LaTeX-listify-package-options (car elt))))
+     LaTeX-auto-polyglossia-lang)
     (setq LaTeX-auto-polyglossia-lang tmp)))
 
 ;; FIXME: This does not seem to work unless one does a manual reparse.
@@ -122,11 +124,13 @@
   "Return a list of polyglossia languages used in the document.
 The last language is the default one."
   (let (active-languages default)
-    (dolist (elt (LaTeX-polyglossia-lang-list))
-      (setq default (or (string-equal "defaultlanguage" (nth 1 elt))
-			(string-equal "mainlanguage" (nth 1 elt))))
-      ;; Append the language to the list if it's the default one.
-      (add-to-list 'active-languages (car elt) default))
+    (mapc
+     (lambda (elt)
+       (setq default (or (string-equal "defaultlanguage" (nth 1 elt))
+			 (string-equal "mainlanguage" (nth 1 elt))))
+       ;; Append the language to the list if it's the default one.
+       (add-to-list 'active-languages (car elt) default))
+     (LaTeX-polyglossia-lang-list))
     active-languages))
 
 (defun LaTeX-polyglossia-lang-option-member (language option)
@@ -146,25 +150,28 @@ OPTIONAL is ignored, if DEFAULT is non-nil treat inserted
 language as default, if MULTIPLE is non-nil prompt for multiple
 languages, if SETKEYS is non-nil insert options as second
 mandatory argument."
-  ;; DEFAULT =  t , MULTIPLE = nil, SETKEYS = nil: `\setdefaultlanguage'.
-  ;; DEFAULT = nil, MULTIPLE = nil, SETKEYS = nil: `\setotherlanguage'.
-  ;; DEFAULT = nil, MULTIPLE =  t , SETKEYS = nil: `\setotherlanguages'.
-  ;; DEFAULT = nil, MULTIPLE = nil, SETKEYS =  t : `\setkeys'.
+  ;; DEFAULT =  t , MULTIPLE = nil, SETKEYS = nil: "\setdefaultlanguage".
+  ;; DEFAULT = nil, MULTIPLE = nil, SETKEYS = nil: "\setotherlanguage".
+  ;; DEFAULT = nil, MULTIPLE =  t , SETKEYS = nil: "\setotherlanguages".
+  ;; DEFAULT = nil, MULTIPLE = nil, SETKEYS =  t : "\setkeys".
   (let* ((function (if multiple 'TeX-completing-read-multiple 'completing-read))
 	 (language (funcall function (if multiple "Languages: " "Language: ")
-			    LaTeX-polyglossia-language-list))
+			    ;; 
+			    (if setkeys
+				(LaTeX-polyglossia-active-languages)
+			      LaTeX-polyglossia-language-list)))
 	 var options)
     (if multiple
 	(mapc (lambda (elt) (TeX-run-style-hooks (concat "gloss-" elt)))
 	      language)
       (TeX-run-style-hooks (concat "gloss-" language)))
-    ;; `\setotherlanguages' doesn't take options, don't prompt for them.
+    ;; "\setotherlanguages" doesn't take options, don't prompt for them.
     (setq options
 	  (if multiple ""
 	    (setq var (intern (format "LaTeX-polyglossia-%s-options-list" language)))
 	    (if (and (boundp var) (symbol-value var))
-		;; `\setdefaultlanguage' and `\setotherlanguage' use `options'
-		;; as first optional argument; `\setkeys' uses `options' as
+		;; "\setdefaultlanguage" and "\setotherlanguage" use `options'
+		;; as first optional argument; "\setkeys" uses `options' as
 		;; second mandatory argument.
 		(TeX-read-key-val (not setkeys) (symbol-value var))
 	      ;; When `LaTeX-polyglossia-<lang>-options-list' is nil or not
@@ -221,7 +228,8 @@ argument, otherwise as a mandatory one."
     '("setotherlanguage"   (LaTeX-arg-polyglossia-lang nil nil nil))
     '("setotherlanguages"  (LaTeX-arg-polyglossia-lang nil  t  nil))
     '("setkeys"            (LaTeX-arg-polyglossia-lang nil nil  t ))
-    '("PolyglossiaSetup" (TeX-arg-key-val LaTeX-polyglossia-lang-list)
+    '("PolyglossiaSetup"   (TeX-arg-eval completing-read "Language: "
+					 (LaTeX-polyglossia-active-languages))
       LaTeX-arg-polyglossiasetup-options))
    ;; Fontification
    (when (and (featurep 'font-latex)
@@ -233,7 +241,7 @@ argument, otherwise as a mandatory one."
 				("setkeys" "{{"))
 			      'function))))
 
-;; TODO: move each option variable in its specific `gloss-*.el' file.
+;; TODO: move each option variable in its specific `gloss-<lang>.el' file.
 (defvar LaTeX-polyglossia-arabic-options-list
   '(("calendar" ("gregorian" "islamic"))
     ("locale" ("default" "mashriq" "libya" "algeria" "tunisia" "morocco" "mauritania"))
