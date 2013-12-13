@@ -134,6 +134,7 @@
 (TeX-add-style-hook
  "fontspec"
  (lambda ()
+   (TeX-run-style-hooks "expl3" "xparse")
    (TeX-add-symbols
     ;; Font selection
     '("fontspec" [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
