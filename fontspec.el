@@ -140,33 +140,39 @@
     '("fontspec" [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
       "Font name")
     ;; Default font families
-    '("setmainfont" [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
+    '("setmainfont"
+      [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
       "Main font name")
-    '("setsansfont" [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
+    '("setsansfont"
+      [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
       "Sans font name")
-    '("setmonofont" [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
+    '("setmonofont"
+      [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
       "Mono font name")
     ;; New commands to select font families
     '("newfontfamily" TeX-arg-define-macro
-      [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"] "Font name")
+      [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
+      "Font name")
     '("newfontface" TeX-arg-define-macro
-      [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"] "Font name")
+      [TeX-arg-key-val LaTeX-fontspec-font-features "Font features"]
+      "Font name")
     ;; Math(s) fonts
     '("setmathrm" [ "Font features" ] "Font name")
     '("setmathsf" [ "Font features" ] "Font name")
     '("setmathtt" [ "Font features" ] "Font name")
     '("setboldmathrm" [ "Font features" ] "Font name")
     ;; Emphasis and nested emphasis
-    '("emshape")
-    '("eminnershape")
+    "emshape"
+    "eminnershape"
     ;; Default settings
     '("defaultfontfeatures" [ "Font name" ]
       (TeX-arg-key-val LaTeX-fontspec-font-features "Font features"))
     ;; Changing the currently selected features
-    '("addfontfeatures" (TeX-arg-key-val LaTeX-fontspec-font-features "Font features"))
+    '("addfontfeatures"
+      (TeX-arg-key-val LaTeX-fontspec-font-features "Font features"))
     ;; Defining new scripts and languages
-    '("newfontscript" "Fontspec name" "OpenType tag")
-    '("newfontlanguage" "Fontspec name" "OpenType tag"))
+    '("newfontscript" "Script name" "OpenType tag")
+    '("newfontlanguage" "Language name" "OpenType tag"))
 
    ;; Fontification
    (when (and (featurep 'font-latex)

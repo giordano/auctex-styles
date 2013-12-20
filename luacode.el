@@ -29,7 +29,7 @@
 
 ;;; Code:
 
-(TeX-add-style-hook 
+(TeX-add-style-hook
  "luacode"
  (lambda ()
    (TeX-add-symbols
@@ -43,6 +43,7 @@
    (LaTeX-add-environments
     '("luacode")
     '("luacode*"))
+
    ;; Fontification
    (when (and (featurep 'font-latex)
 	      (eq TeX-install-font-lock 'font-latex-setup))

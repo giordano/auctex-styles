@@ -29,7 +29,7 @@
 
 ;;; Code:
 
-(TeX-add-style-hook 
+(TeX-add-style-hook
  "metalogo"
  (lambda ()
    (TeX-add-symbols
@@ -45,16 +45,20 @@
 		    '(("Te") ("eX") ("La") ("aT") ("Xe") ("eT") ("eL") ("X2")))
       (TeX-arg-length "Dimension"))
     '("setlogodrop"
-      [TeX-arg-eval completing-read "Drop parameters: " '(("TeX") ("Xe") ("XeTeX"))]
+      [TeX-arg-eval completing-read "Drop parameters: "
+		    '(("TeX") ("Xe") ("XeTeX"))]
       (TeX-arg-length "Dimension"))
     '("setLaTeXa" 1)
     '("setLaTeXee" 1)
     '("seteverylogo" 1)
     '("everylogo" 1))
 
+   ;; The main macros of this package are the logos, while fine-tuning commands
+   ;; probably will be used only by expert users.
    (TeX-declare-expert-macros
     "metalogo"
-    "setlogokern" "setlogodrop" "setLaTeXa" "setLaTeXee" "seteverylogo" "everylogo")
+    "setlogokern" "setlogodrop" "setLaTeXa" "setLaTeXee"
+    "seteverylogo" "everylogo")
 
    ;; Fontification
    (when (and (featurep 'font-latex)
